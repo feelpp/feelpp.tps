@@ -1,0 +1,1247 @@
+<document>
+
+  <config version="7.3.0"
+	  caption="SALOME v%1"
+ 	  copyright="&lt;h5>Copyright (C) 2007-2013 CEA/DEN, EDF R&amp;D, OPEN CASCADE&lt;br>&lt;br>Copyright (C) 2003-2007 OPEN CASCADE,&lt;br>EADS/CCR, LIP6, CEA/DEN, CEDRAT, EDF R&amp;D,&lt;br>LEG, PRINCIPIA R&amp;D, BUREAU VERITAS&lt;/h5>"
+          license="&lt;h5>GNU LGPL&lt;/h5>"
+	  platforms="Debian jessie 64bit"
+	  targetdir="${HOME}/salome_7.3.0"
+	  tempdir="/tmp"
+	  np="8"
+	  conf_opts="-DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/mpic++ -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/mpicc -DSALOME_USE_MPI:BOOL=ON -DMEDFILE_USE_MPI:BOOL=ON -DSALOME_MED_PARTITIONER_PARMETIS:BOOL=OFF"
+	  optionallibs="libcppunit,libblsurf"/>
+
+  <buttons>
+    <button label="Launch SALOME"
+    	    tooltip="Click this button to launch SALOME"
+	    script="start_salome.sh"
+	    disable="false"/>
+    <button label="Release Notes"
+            tooltip="Click this button to read release notes"
+            script="release_notes.sh"
+	    disable="false"/>
+  </buttons>
+  <products>
+    <product name="KERNEL"
+             type="component"
+	     description="SALOME platform KERNEL module">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    woguimode="true"
+		    installdiskspace="50462,13816,149426"
+		    pickupenv="true"
+		    script="KERNEL.sh"/>
+    </product>
+    <product name="GUI"
+             type="component"
+	     description="SALOME platform GUI module">
+      <installation os="Debian jessie 64bit"
+	            version="7.3.0" 
+		    disable="false"
+		    installdiskspace="21881,18564,99969"
+		    script="GUI.sh"/>
+    </product>
+    <product name="GEOM"
+             type="component"
+	     description="SALOME platform GEOM module">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    woguimode="true"
+		    installdiskspace="55126,33456,208482"
+		    script="GEOM.sh"/>
+    </product>
+    <product name="MED"
+             type="component"
+	     description="SALOME platform MED module">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    woguimode="true"
+		    installdiskspace="228968,160420,475400"
+		    script="MED.sh"/>
+    </product>
+    <product name="SMESH"
+             type="component"
+	     description="SALOME platform SMESH module">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    woguimode="true"
+		    installdiskspace="64682,40532,233834"
+		    script="SMESH.sh"/>
+    </product>
+    <product name="VISU"
+             type="component"
+	     description="SALOME platform VISU module">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="true"
+		    installdiskspace="28204,13148,128936"
+		    script="VISU.sh"/>
+    </product>
+    <product name="PARAVIS"
+             type="component"
+	     description="SALOME platform PARAVIS module">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="400524,8724,1603452"
+		    script="PARAVIS.sh"/>
+    </product>
+    <product name="HEXABLOCK"
+             type="component"
+	     description="SALOME platform HEXABLOCK module">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="14157,25752,48601"
+		    script="HEXABLOCK.sh"/>
+    </product>
+    <product name="HEXABLOCKPLUGIN"
+             type="component"
+	     description="SALOME platform HEXABLOCK meshing algorithm plugin">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="800,636,4796"
+		    script="HEXABLOCKPLUGIN.sh"/>
+    </product>
+    <product name="NETGENPLUGIN"
+             type="component"
+	     description="SALOME platform NETGEN meshing algorithm plugin">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    woguimode="true"
+		    installdiskspace="4949,1540,17617"
+		    script="NETGENPLUGIN.sh"/>
+    </product>
+    <product name="GHS3DPLUGIN" 
+             type="component"
+	     description="SALOME platform GHS3D meshing algorithm plugin. For use this plugin you should add the path to ghs3d to your PATH environment variable.">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    woguimode="true"
+		    installdiskspace="4144,1880,13132"
+		    script="GHS3DPLUGIN.sh"/>
+    </product>
+    <product name="GHS3DPRLPLUGIN" 
+             type="component"
+	     description="SMESH plugin from CEA">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    woguimode="true"
+		    installdiskspace="2903,1112,9219"
+		    script="GHS3DPRLPLUGIN.sh"/>
+    </product>
+    <product name="BLSURFPLUGIN"
+             type="component"
+	     description="SMESH plugin from CEA sources">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    woguimode="true"
+		    installdiskspace="5582,2732,18050"
+		    script="BLSURFPLUGIN.sh"/>
+    </product>
+    <product name="HexoticPLUGIN" 
+             type="component"
+	     description="SMESH plugin from CEA">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    woguimode="true"
+		    installdiskspace="6650,4728,16670"
+		    script="HexoticPLUGIN.sh"/>
+    </product>
+    <product name="COMPONENT"
+             type="component"
+	     description="SALOME platform COMPONENT module">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="2789,1208,12209"
+		    script="COMPONENT.sh"/>
+    </product>
+    <product name="PYCALCULATOR"
+             type="component"
+	     description="SALOME platform PYCALCULATOR module">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="280,556,1280"
+		    script="PYCALCULATOR.sh"/>
+    </product>
+    <product name="CALCULATOR"
+             type="component"
+	     description="SALOME platform CALCULATOR module">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="541,728,1849"
+		    script="CALCULATOR.sh"/>
+    </product>
+    <product name="HELLO" 
+             type="component"
+	     description="Example SALOME C++ module: Hello.">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="886,724,3242"
+		    script="HELLO.sh"/>
+    </product>
+    <product name="PYHELLO" 
+             type="component"
+	     description="Example SALOME Python module: Hello.">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="834,692,2346"
+		    script="PYHELLO.sh"/>
+    </product>
+    <product name="ATOMGEN" 
+             type="component"
+	     description="Example from Salome tutorial.">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="421,500,1701"
+		    script="ATOMGEN.sh"/>
+    </product>
+    <product name="ATOMSOLV" 
+             type="component"
+	     description="Example from Salome tutorial.">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="512,576,3192"
+		    script="ATOMSOLV.sh"/>
+    </product>
+    <product name="ATOMIC" 
+             type="component"
+	     description="Example from Salome tutorial.">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="389,564,2989"
+		    script="ATOMIC.sh"/>
+    </product>
+    <product name="LIGHT"
+             type="component"
+	     description="LIGHT (no-CORBA-engine) SALOME module example">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="284,468,1944"
+		    script="LIGHT.sh"/>
+    </product>
+    <product name="PYLIGHT"
+             type="component"
+	     description="LIGHT Python (no-CORBA-engine) SALOME module example">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="140,376,692"
+		    script="PYLIGHT.sh"/>
+    </product>
+    <product name="RANDOMIZER"
+             type="component"
+	     description="SALOME-based module implement simple interface to calculate Sierpinsky fields">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="144,356,992"
+		    script="RANDOMIZER.sh"/>
+    </product>
+    <product name="SIERPINSKY"
+             type="component"
+	     description="SALOME-based module implement simple interface to calculate Sierpinsky fields">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="416,508,2976"
+		    script="SIERPINSKY.sh"/>
+    </product>
+    <product name="FILTER"
+             type="component"
+	     description="Med Memory package">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="true"
+		    installdiskspace="208,221,2958"
+		    script="FILTER.sh"/>
+    </product>
+    <product name="YACS"
+             type="component"
+	     description="Tool to supervise execution of complex interconnected scientific applications">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="30182,20736,141962"
+		    script="YACS.sh"/>
+    </product>
+    <product name="YACSGEN" 
+	     type="component"
+             description="Component and module generator for SALOME">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="646,1716,646"
+		    script="YACSGEN.sh"/>
+
+    </product>
+    <product name="JOBMANAGER" 
+	     type="component"
+             description="Component and module generator for SALOME">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="1970,1748,11402"
+		    script="JOBMANAGER.sh"/>
+    </product>
+    <product name="SAMPLES"
+             type="component"
+	     description="SALOME samples files">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="346780,346780,346780"
+		    script="SAMPLES.sh"/>
+    </product>
+    <product name="TUTORIAL"
+             type="component"
+	     description="Introduction to the developing of an application based on SALOME platform">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="4704,4704,4704"
+		    script="TUTORIAL.sh"/>
+    </product>
+    <product name="HOMARD"
+             type="component"
+	     description="SALOME platform HOMARD module">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="24765,18440,58193"
+		    script="HOMARD.sh"/>
+    </product>
+    <product name="xdata" 
+	     type="component"
+             description="Python module for types declaration in python classes">
+      <installation os="Debian jessie 64bit"
+                    version="0.9.9" 
+		    disable="false"
+		    installdiskspace="6909,4908,6913"
+		    script="xdata.sh"/>
+    </product>
+    <product name="HXX2SALOME"
+	     type="component"
+             description="SALOME module generator">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="801,3520,3513"
+		    script="HXX2SALOME.sh"/>
+    </product>
+    <product name="HXX2SALOMEDOC"
+	     type="component"
+             description="SALOME module generator documentation">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="0,2308,2308"
+		    script="HXX2SALOMEDOC.sh"/>
+    </product>
+    <product name="DOCUMENTATION"
+	     type="component"
+             description="SALOME documentation">
+      <installation os="Debian jessie 64bit"
+                    version="7.3.0" 
+		    disable="false"
+		    installdiskspace="8471,8224,9835"
+		    script="DOCUMENTATION.sh"/>
+    </product>
+    <product name="SIMAN"
+	     type="component"
+             description="SALOME simulation manager">
+      <installation os="Debian jessie 64bit"
+                    version="1.0" 
+		    disable="false"
+		    installdiskspace="0,93200,0"
+		    script="SIMAN.sh"/>
+    </product>
+    <product name="tcltk" 
+             type="prerequisite"
+	     description="Tcl/Tk library">
+      <installation os="Debian jessie 64bit"
+	            version="8.6.0" 
+		    disable="false"
+		    installdiskspace="16721,66382,96834"
+		    script="tcltk.sh"/>
+    </product>
+    <product name="Python" 
+	     type="prerequisite"
+             description="Python language interpreter">
+      <installation os="Debian jessie 64bit"
+                    version="2.7.3" 
+		    disable="false"
+		    installdiskspace="89540,68459,204651"
+		    script="Python.sh"/>
+    </product>
+    <product name="Qt" 
+	     type="prerequisite"
+	     description="Multiplatform C++ GUI application framework">
+      <installation os="Debian jessie 64bit"
+                    version="4.8.4" 
+		    disable="false"
+		    installdiskspace="495828,736985,2448092"
+		    script="qt.sh"/>
+    </product>
+    <product name="Sip"
+	     type="prerequisite"
+             description="C++ to Python bindings generation tool">
+      <installation os="Debian jessie 64bit"
+                    version="4.14.2" 
+		    disable="false"
+		    installdiskspace="608,4004,6450"
+		    script="sip.sh"/>
+    </product>
+    <product name="PyQt"
+	     type="prerequisite"
+	     description="Python bindings for Qt library">
+      <installation os="Debian jessie 64bit"
+                    version="4.9.6" 
+		    disable="false"
+		    installdiskspace="17774,33593,143198"
+		    script="PyQt.sh"/>
+    </product>
+    <product name="QScintilla" 
+	     type="prerequisite"
+	     description="Auxiliary tool for source code editing and debugging">
+      <installation os="Debian jessie 64bit"
+                    version="2.7" 
+		    disable="false"
+		    installdiskspace="4724,18769,38150"
+		    script="qscintilla.sh"/>
+    </product>
+    <product name="boost"
+	     type="prerequisite"
+	     description="Free peer-reviewed portable STL extension">
+      <installation os="Debian jessie 64bit"
+                    version="1.52.0" 
+		    disable="false"
+		    installdiskspace="148317,437336,837696"
+		    script="boost.sh"/>
+    </product>
+    <product name="Swig" 
+	     type="prerequisite"
+	     description="Simplified Wrapper and Interface Generator">
+      <installation os="Debian jessie 64bit"
+                    version="2.0.8" 
+		    disable="false"
+		    installdiskspace="5753,30745,44713"
+		    script="swig.sh"/>
+    </product>
+    <product name="freetype"
+	     type="prerequisite"
+	     description="Font service engine">
+      <installation os="Debian jessie 64bit"
+                    version="2.4.11" 
+		    disable="false"
+		    installdiskspace="2999,13122,20651"
+		    script="freetype.sh"/>
+    </product>
+    <product name="ftgl"
+	     type="prerequisite"
+	     description="Library for using arbitrary fonts in OpenGL applications">
+      <installation os="Debian jessie 64bit"
+                    version="2.1.3" 
+		    disable="true"
+		    installdiskspace="4083,3568,37844"
+		    script="ftgl.sh"/>
+    </product>
+    <product name="freeimage"
+	     type="prerequisite"
+	     description="Library for supporting different graphical formats PNG, BMP, JPEG, TIFF and others">
+      <installation os="Debian jessie 64bit"
+                    version="3.15.4" 
+		    disable="false"
+		    installdiskspace="20110,25378,92558"
+		    script="freeimage.sh"/>
+    </product>
+    <product name="cmake"
+	     type="prerequisite"
+	     description="The cross-platform, open-source make system">
+      <installation os="Debian jessie 64bit"
+                    version="2.8.10.2" 
+		    disable="false"
+		    installdiskspace="48244,34105,237245"
+		    script="cmake.sh"/>
+    </product>
+    <product name="gl2ps"
+	     type="prerequisite"
+	     description="Library for printing an OpenGL output to PostScript (and PDF, and SVG...).">
+      <installation os="Debian jessie 64bit"
+                    version="1.3.8"
+		    disable="false"
+		    installdiskspace="568,560,2285"
+		    script="gl2ps.sh"/>
+    </product>
+    <product name="tbb"
+	     type="prerequisite"
+	     description="Intel(R) Threading Building Blocks">
+      <installation os="Debian jessie 64bit"
+                    version="30_018oss"
+		    disable="false"
+		    installdiskspace="23534,0,23534"
+		    script="tbb.sh"/>
+    </product>
+    <product name="OpenCascade" 
+	     type="prerequisite"
+             description="Open CASCADE Technology">
+      <installation os="Debian jessie 64bit"
+                    version="6.7.0" 
+		    disable="false"
+		    installdiskspace="157084,428325,1392563"
+		    script="OCCT.sh"/>
+    </product>
+    <product name="Qwt" 
+	     type="prerequisite"
+             description="2-D plotting extension for Qt library">
+      <installation os="Debian jessie 64bit"
+                    version="5.2.1" 
+		    disable="false"
+		    installdiskspace="9990,10685,24336"
+		    script="qwt.sh"/>
+    </product>
+    <product name="OmniORB"
+	     type="prerequisite"
+             description="Open source Object Request Broker (ORB) library that implements the 2.3 specification of the Common Object Request Broker Architecture (CORBA)">
+      <installation os="Debian jessie 64bit"
+                    version="4.1.6" 
+		    disable="false"
+		    installdiskspace="43909,19790,213687"
+		    script="omniORB.sh"/>
+    </product>
+    <product name="Hdf5" 
+	     type="prerequisite"
+	     description="Hierarchical Data Format library">
+      <installation os="Debian jessie 64bit"
+                    version="1.8.10" 
+		    disable="false"
+		    installdiskspace="6058,93351,117456"
+		    script="hdf5.sh"/>
+    </product>
+    <product name="cgnslib"
+	     type="prerequisite"
+	     description="Provides a standard for recording and recovering computer data associated with the numerical solution of the equations of fluid dynamics.">
+      <installation os="Debian jessie 64bit"
+                    version="3.1.3-4" 
+		    disable="false"
+		    installdiskspace="2078,6577,13778"
+		    script="cgnslib.sh"/>
+    </product>
+    <product name="Med"
+	     type="prerequisite"
+	     description="MED format interface library">
+      <installation os="Debian jessie 64bit"
+                    version="3.0.7" 
+		    disable="false"
+		    installdiskspace="140767,165002,375774"
+		    script="med.sh"/>
+    </product>
+    <product name="Metis"
+	     type="prerequisite"
+	     description="Software package for partitioning unstructured graphs, partitioning meshes, and computing fill-reducing orderings of sparse matrices">
+      <installation os="Debian jessie 64bit"
+                    version="4.0" 
+		    disable="false"
+		    installdiskspace="3033,2139,7586"
+		    script="metis.sh"/>
+    </product>
+    <product name="Scotch"
+	     type="prerequisite"
+	     description="Software package and library devoted to static mapping, partitioning and sparce matrix block ordering og graph and meshes">
+      <installation os="Debian jessie 64bit"
+                    version="5.1.11" 
+		    disable="false"
+		    installdiskspace="2970,9509,19100"
+		    script="scotch.sh"/>
+    </product>
+    <product name="ParaView"
+	     type="prerequisite"
+	     description="Scalable, open-source visualization application">
+      <installation os="Debian jessie 64bit"
+                    version="3.98.1" 
+		    disable="false"
+		    installdiskspace="227278,240114,1492710"
+		    script="ParaView.sh"/>
+    </product>
+    <product name="numpy"
+	     type="prerequisite"
+	     description="Fundamental package for scientific computing with Python">
+      <installation os="Debian jessie 64bit"
+                    version="1.7.1" 
+		    disable="false"
+		    installdiskspace="27506,74020,193436"
+		    script="numpy.sh"/>
+    </product>
+    <product name="libBatch" 
+	     type="prerequisite"
+             description="Generic batch management library">
+      <installation os="Debian jessie 64bit"
+                    version="2.1.0" 
+		    disable="false"
+		    installdiskspace="954,1300,5190"
+		    script="libBatch.sh"/>
+    </product>
+    <product name="expat"
+	     type="prerequisite"
+             description="C library for parsing XML">
+      <installation os="Debian jessie 64bit"
+                    version="2.0.1" 
+		    disable="false"
+		    installdiskspace="1129,2391,6233"
+		    script="expat.sh"/>
+    </product>
+    <product name="Graphviz"
+	     type="prerequisite"
+             description="Graph Drawing Programs set">
+      <installation os="Debian jessie 64bit"
+                    version="2.30.0" 
+		    disable="false"
+		    installdiskspace="11771,68067,112612"
+		    script="graphviz.sh"/>
+    </product>
+    <product name="Doxygen"
+	     type="prerequisite"
+             description="Documentation system for C++, C, Java, IDL, etc.">
+      <installation os="Debian jessie 64bit"
+                    version="1.8.3.1" 
+		    disable="false"
+		    installdiskspace="8817,26285,85558"
+		    script="doxygen.sh"/>
+    </product>
+    <product name="docutils"
+	     type="prerequisite"
+             description="Utilites for processing plaintext documentation">
+      <installation os="Debian jessie 64bit"
+                    version="0.10" 
+		    disable="true"
+		    installdiskspace="2163,6605,10858"
+		    script="docutils.sh"/>
+    </product>
+    <product name="Sphinx"
+	     type="prerequisite"
+             description="Tool for creation of documentation for Python projects. Includes docutils, setuptools, Jinja2 and pygments.">
+      <installation os="Debian jessie 64bit"
+                    version="1.1.3" 
+		    disable="false"
+		    installdiskspace="14417,30740,57553"
+		    script="Sphinx.sh"/>
+    </product>
+    <product name="netgen" 
+	     type="prerequisite"
+             description="Quadrangle meshing algorithmic tool">
+      <installation os="Debian jessie 64bit"
+                    version="4.9.13" 
+		    disable="false"
+		    installdiskspace="4634,8804,37071"
+		    script="netgen.sh"/>
+    </product>
+    <product name="MeshGems" 
+	     type="prerequisite"
+             description="DISTENE meshing tools">
+      <installation os="Debian jessie 64bit"
+                    version="1.1" 
+		    disable="false"
+		    installdiskspace="164468,0,164468"
+		    script="DISTENE.sh"/>
+    </product>
+    <product name="homard"
+	     type="prerequisite"
+             description="HOMARD meshing tools">
+      <installation os="Debian jessie 64bit"
+                    version="10.7" 
+		    disable="false"
+		    installdiskspace="18030,0,18030"
+		    script="homard.sh"/>
+    </product>
+    <product name="libxml2" 
+	     type="prerequisite"
+             description="XML C parser">
+      <installation os="Debian jessie 64bit"
+                    version="2.9.0" 
+		    disable="false"
+		    installdiskspace="17681,45113,95387"
+		    script="libxml2.sh"/>
+    </product>
+    <product name="libgd" 
+	     type="prerequisite"
+             description="GD Graphics Library">
+      <installation os="Debian jessie 64bit"
+                    version="2.1.0" 
+		    disable="false"
+		    installdiskspace="17681,45113,95387"
+		    script="libgd.sh"/>
+    </product>
+    <product name="wso2" 
+	     type="prerequisite"
+             description="WSO2 Web Services Framework for C++ (WSF/C++) is an extension to WSO2 Web Services Framework for C (WSF/C) wrapping the existing API.">
+      <installation os="Debian jessie 64bit"
+                    version="2.1.0" 
+		    disable="false"
+		    installdiskspace="45118,89260,202957"
+		    script="wso2.sh"/>
+    </product>
+    <product name="simanio" 
+	     type="prerequisite"
+             description="Interface library for SALOME Simulation manager (SIMAN).">
+      <installation os="Debian jessie 64bit"
+                    version="0.1" 
+		    disable="false"
+		    installdiskspace="268,620,1796"
+		    script="simanio.sh"/>
+    </product>
+  </products>
+  <dependencies>
+    <product name="KERNEL">
+      <dep>boost</dep>
+      <dep>Python</dep>
+      <dep>numpy</dep>
+      <dep>Swig</dep>
+      <dep>Hdf5</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>libxml2</dep>
+      <dep>Sphinx</dep>
+      <dep>libBatch</dep>
+      <dep>simanio</dep>
+    </product>
+    <product name="GUI">
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Qt</dep>
+      <dep>Qwt</dep>
+      <dep>Hdf5</dep>
+      <dep>ParaView</dep>
+      <dep>OmniORB</dep>
+      <dep>Sip</dep>
+      <dep>PyQt</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>libxml2</dep>
+      <dep>KERNEL</dep>
+    </product>
+    <product name="GEOM">
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Hdf5</dep>
+      <dep>ParaView</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>Sphinx</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+    </product>
+    <product name="MED">
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Hdf5</dep>
+      <dep>ParaView</dep>
+      <dep>Med</dep>
+      <dep>Metis</dep>
+      <dep>Scotch</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>libxml2</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+    </product>
+    <product name="SMESH">
+      <dep>cgnslib</dep>
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Hdf5</dep>
+      <dep>ParaView</dep>
+      <dep>Med</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>Sphinx</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>GEOM</dep>
+      <dep>MED</dep>
+    </product>
+    <product name="HEXABLOCK">
+      <dep>boost</dep>
+      <dep>Python</dep>
+      <dep>OmniORB</dep>
+      <dep>Qt</dep>
+      <dep>OpenCascade</dep>
+      <dep>ParaView</dep>
+      <dep>Sphinx</dep>
+      <dep>libxml2</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>GEOM</dep>
+    </product>
+    <product name="HOMARD">
+      <dep>homard</dep>
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Hdf5</dep>
+      <dep>Med</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>Sphinx</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>GEOM</dep>
+      <dep>MED</dep>
+      <dep>SMESH</dep>      
+    </product>
+    <product name="VISU">
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Qt</dep>
+      <dep>Qwt</dep>
+      <dep>Hdf5</dep>
+      <dep>Med</dep>
+      <dep>ParaView</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>MED</dep>
+    </product>
+    <product name="PARAVIS">
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Qt</dep>
+      <dep>Qwt</dep>
+      <dep>Hdf5</dep>
+      <dep>Med</dep>
+      <dep>ParaView</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>MED</dep>
+    </product>
+    <product name="HEXABLOCKPLUGIN">
+      <dep>boost</dep>
+      <dep>OmniORB</dep>
+      <dep>OpenCascade</dep>
+      <dep>Doxygen</dep>
+      <dep>Qt</dep>
+      <dep>ParaView</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Hdf5</dep>
+      <dep>Med</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>GEOM</dep>
+      <dep>MED</dep>
+      <dep>SMESH</dep>
+      <dep>HEXABLOCK</dep>
+    </product>
+    <product name="NETGENPLUGIN">
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Hdf5</dep>
+      <dep>Med</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>netgen</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>GEOM</dep>
+      <dep>MED</dep>
+      <dep>SMESH</dep>
+    </product>
+    <product name="GHS3DPLUGIN">
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Hdf5</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>MeshGems</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>GEOM</dep>
+      <dep>SMESH</dep>
+    </product>
+    <product name="GHS3DPRLPLUGIN">
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Hdf5</dep>
+      <dep>Med</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>MeshGems</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>GEOM</dep>
+      <dep>MED</dep>
+      <dep>SMESH</dep>
+    </product>
+    <product name="BLSURFPLUGIN">
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Hdf5</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>MeshGems</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>GEOM</dep>
+      <dep>MED</dep>
+      <dep>SMESH</dep>
+    </product>
+    <product name="HexoticPLUGIN">
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Hdf5</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>MeshGems</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>GEOM</dep>
+      <dep>MED</dep>
+      <dep>SMESH</dep>
+      <dep>BLSURFPLUGIN</dep>
+    </product>
+    <product name="COMPONENT">
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Qt</dep>
+      <dep>Qwt</dep>
+      <dep>Hdf5</dep>
+      <dep>Med</dep>
+      <dep>ParaView</dep>
+      <dep>OmniORB</dep>
+      <dep>Sip</dep>
+      <dep>PyQt</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>KERNEL</dep>
+      <dep>MED</dep>
+    </product>
+    <product name="PYCALCULATOR">
+      <dep>Python</dep>
+      <dep>OmniORB</dep>
+      <dep>Med</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>KERNEL</dep>
+      <dep>MED</dep>
+    </product>
+    <product name="CALCULATOR">
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Qt</dep>
+      <dep>Hdf5</dep>
+      <dep>Med</dep>
+      <dep>OmniORB</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>MED</dep>
+    </product>
+    <product name="HELLO">
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Qt</dep>
+      <dep>OmniORB</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+    </product>
+    <product name="PYHELLO">
+      <dep>Python</dep>
+      <dep>OmniORB</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+    </product>
+    <product name="LIGHT">
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Qt</dep>
+      <dep>Hdf5</dep>
+      <dep>ParaView</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+    </product>
+    <product name="PYLIGHT">
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Qt</dep>
+      <dep>Hdf5</dep>
+      <dep>ParaView</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+    </product>
+    <product name="RANDOMIZER">
+      <dep>Python</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+    </product>
+    <product name="SIERPINSKY">
+      <dep>libgd</dep>
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Qt</dep>
+      <dep>Hdf5</dep>
+      <dep>Med</dep>
+      <dep>ParaView</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>SMESH</dep>
+      <dep>RANDOMIZER</dep>
+    </product>
+    <product name="FILTER">
+      <dep>boost</dep>
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>Qt</dep>
+      <dep>Qwt</dep>
+      <dep>Hdf5</dep>
+      <dep>Med</dep>
+      <dep>ParaView</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>MED</dep>
+    </product>
+    <product name="YACS">
+      <dep>OpenCascade</dep>
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>OmniORB</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>Sphinx</dep>
+      <dep>QScintilla</dep>
+      <dep>libxml2</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+    </product>
+    <product name="Python">
+      <dep>tcltk</dep>
+    </product>
+    <product name="Sip">
+      <dep>Python</dep>
+      <dep>Qt</dep>
+    </product>
+    <product name="PyQt">
+      <dep>Python</dep>
+      <dep>Qt</dep>
+      <dep>Sip</dep>
+    </product>
+    <product name="QScintilla">
+      <dep>Qt</dep>
+      <dep>Python</dep>
+      <dep>Sip</dep>
+      <dep>PyQt</dep>
+    </product>
+    <product name="Sphinx">
+      <dep>Python</dep>
+    </product>
+    <product name="boost">
+      <dep>Python</dep>
+    </product>
+    <product name="Swig">
+      <dep>Python</dep>
+      <dep>tcltk</dep>
+      <dep>boost</dep>
+    </product>
+    <product name="ftgl">
+      <dep>freetype</dep>
+    </product>
+    <product name="gl2ps">
+      <dep>cmake</dep>
+    </product>
+    <product name="OpenCascade">
+      <dep>tbb</dep>
+      <dep>gl2ps</dep>
+      <dep>freeimage</dep>
+      <dep>freetype</dep>
+      <dep>tcltk</dep>
+    </product>
+    <product name="PatchForOpenCascade">
+      <dep>OpenCascade</dep>
+    </product>
+    <product name="Qwt">
+      <dep>Qt</dep>
+    </product>
+    <product name="OmniORB">
+      <dep>Python</dep>
+    </product>
+    <product name="Hdf5">
+      <dep>cmake</dep>
+    </product>
+    <product name="Med">
+      <dep>Hdf5</dep>
+      <dep>Python</dep>
+      <dep>cmake</dep>
+    </product>
+    <product name="cgnslib">
+      <dep>Hdf5</dep>
+    </product>
+    <product name="ParaView">
+      <dep>Python</dep>
+      <dep>tcltk</dep>
+      <dep>Hdf5</dep>
+      <dep>cmake</dep>
+      <dep>Qt</dep>
+      <dep>boost</dep>
+      <dep>gl2ps</dep>
+    </product>
+    <product name="numpy">
+      <dep>Python</dep>
+    </product>
+    <product name="Graphviz">
+      <dep>Python</dep>
+      <dep>tcltk</dep>
+      <dep>Swig</dep>
+      <dep>expat</dep>
+    </product>
+    <product name="Doxygen">
+      <dep>Graphviz</dep>
+    </product>
+    <product name="docutils">
+      <dep>Python</dep>
+    </product>
+    <product name="libxml2">
+      <dep>Python</dep>
+    </product>    
+    <product name="netgen">
+      <dep>tcltk</dep>
+      <dep>OpenCascade</dep>
+    </product>
+    <product name="libBatch">
+      <dep>Python</dep>
+      <dep>Swig</dep>
+      <dep>cmake</dep>
+    </product>
+    <product name="YACSGEN">
+      <dep>Python</dep>
+    </product>
+    <product name="JOBMANAGER">
+      <dep>Qt</dep>
+      <dep>OmniORB</dep>
+      <dep>Sphinx</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+    </product>
+    <product name="xdata">
+      <dep>Python</dep>
+      <dep>Qt</dep>
+      <dep>PyQt</dep>
+      <dep>OmniORB</dep>
+      <dep>ParaView</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>MED</dep>
+      <dep>GEOM</dep>
+    </product>
+    <product name="HXX2SALOME">
+      <dep>Qt</dep>
+      <dep>HXX2SALOMEDOC</dep>
+    </product>
+    <product name="ATOMGEN">
+      <dep>Python</dep>
+      <dep>Qt</dep>
+      <dep>PyQt</dep>
+      <dep>OmniORB</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+    </product>
+    <product name="ATOMSOLV">
+      <dep>Python</dep>
+      <dep>Qt</dep>
+      <dep>OmniORB</dep>
+      <dep>ParaView</dep>
+      <dep>OpenCascade</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+      <dep>ATOMGEN</dep>
+    </product>
+    <product name="ATOMIC">
+      <dep>Python</dep>
+      <dep>Qt</dep>
+      <dep>OmniORB</dep>
+      <dep>ParaView</dep>
+      <dep>Hdf5</dep>
+      <dep>OpenCascade</dep>
+      <dep>Doxygen</dep>
+      <dep>Graphviz</dep>
+      <dep>KERNEL</dep>
+      <dep>GUI</dep>
+    </product>
+    <product name="simanio">
+      <dep>wso2</dep>
+    </product>
+  </dependencies>
+</document>
