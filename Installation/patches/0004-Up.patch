@@ -1,0 +1,32 @@
+From b6dadc879a67386525687ff8c61d340731808e6b Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Tue, 4 Feb 2014 15:09:47 +0100
+Subject: [PATCH 4/9] Up
+
+---
+ config_files/boost.sh | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/config_files/boost.sh b/config_files/boost.sh
+index c39f849..ed042a3 100755
+--- a/config_files/boost.sh
++++ b/config_files/boost.sh
+@@ -87,10 +87,14 @@ try_preinstalled
+ 
+ install_source_and_build()
+ {
++status=1
+ ver=`egrep 'BOOST_VERSION [0-9]+' /usr/include/boost/version.hpp | sed 's/.*BOOST_VERSION \([0-9]\+\)/\1/g'`
+ if [ ${ver} -ge "${BOOST_XVERSION}" ]; then
++   status=0
++fi
++
++if [ "$status" = "0" ]; then
+    echo "use built-in boost"
+-   print_env_sys
+ else
+ # install sources
+ install_source
+-- 
+1.8.5.3
+

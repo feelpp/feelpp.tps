@@ -1,0 +1,44 @@
+From 371b7cfcac5013e040bcbe56deca0c5062969976 Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Tue, 4 Feb 2014 15:19:39 +0100
+Subject: [PATCH] Fix to build with hdf5-mpi-dev on Debian/Ubuntu
+
+---
+ src/ci/CMakeLists.txt   | 4 ++++
+ src/hdfi/CMakeLists.txt | 5 +++++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/src/ci/CMakeLists.txt b/src/ci/CMakeLists.txt
+index 5be00af..b36056c 100644
+--- a/src/ci/CMakeLists.txt
++++ b/src/ci/CMakeLists.txt
+@@ -276,6 +276,10 @@ SET(ci_SOURCES
+   _MEDmeshEntityInfo30.c
+   _MEDmeshEntityInfo236.c)
+ 
++if(MEDFILE_USE_MPI)
++  LIST(APPEND ci_SOURCES MEDparFileOpen.c)
++endif(MEDFILE_USE_MPI)
++
+ # Intermediary targets
+ ADD_LIBRARY(_ci OBJECT ${ci_SOURCES})
+ 
+diff --git a/src/hdfi/CMakeLists.txt b/src/hdfi/CMakeLists.txt
+index a4b5a9b..c4b04ed 100644
+--- a/src/hdfi/CMakeLists.txt
++++ b/src/hdfi/CMakeLists.txt
+@@ -60,6 +60,11 @@ SET(hdfi_SOURCES
+   MEDfichierDemonter.c
+   MEDobjetsOuverts.c
+   )
++
++if(MEDFILE_USE_MPI)
++  LIST(APPEND hdfi_SOURCES _MEDparFileOpen.c)
++  LIST(APPEND hdfi_SOURCES _MEDparFileCreate.c)
++endif(MEDFILE_USE_MPI)
+   
+ ADD_LIBRARY(_hdfi OBJECT ${hdfi_SOURCES})
+  
+-- 
+1.8.5.3
+

@@ -1,0 +1,40 @@
+From 4adfbce4c869359692a39fa344e1829b9c85a243 Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Wed, 5 Feb 2014 07:54:04 +0100
+Subject: [PATCH 5/9] Force compilation of boost
+
+---
+ config_files/boost.sh | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/config_files/boost.sh b/config_files/boost.sh
+index ed042a3..ac7188e 100755
+--- a/config_files/boost.sh
++++ b/config_files/boost.sh
+@@ -88,10 +88,10 @@ try_preinstalled
+ install_source_and_build()
+ {
+ status=1
+-ver=`egrep 'BOOST_VERSION [0-9]+' /usr/include/boost/version.hpp | sed 's/.*BOOST_VERSION \([0-9]\+\)/\1/g'`
+-if [ ${ver} -ge "${BOOST_XVERSION}" ]; then
+-   status=0
+-fi
++#ver=`egrep 'BOOST_VERSION [0-9]+' /usr/include/boost/version.hpp | sed 's/.*BOOST_VERSION \([0-9]\+\)/\1/g'`
++#if [ ${ver} -ge "${BOOST_XVERSION}" ]; then
++#   status=0
++#fi
+ 
+ if [ "$status" = "0" ]; then
+    echo "use built-in boost"
+@@ -117,7 +117,7 @@ cd ${PRODUCT_SRC_DIR}
+ PRODUCT_BUILD_DIR=${PRODUCT_DIR}_build
+ mkdir -p ${PRODUCT_BUILD_DIR} >& /dev/null
+ 
+-./b2 --prefix=${PRODUCT_DIR} --layout=tagged toolset=gcc variant=release runtime-link=shared threading=multi --build-dir=${PRODUCT_BUILD_DIR} install >& ${PRODUCT_DIR}/INSTALL.LOG 
++./b2 -j ${NP} --prefix=${PRODUCT_DIR} --layout=tagged toolset=gcc variant=release runtime-link=shared threading=multi --build-dir=${PRODUCT_BUILD_DIR} install >& ${PRODUCT_DIR}/INSTALL.LOG 
+ 
+ if [ "$?" -ne "0" ] ; then
+     cat ${PRODUCT_DIR}/INSTALL.LOG
+-- 
+1.8.5.3
+

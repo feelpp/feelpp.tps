@@ -1,0 +1,78 @@
+From 814cca1fb699e5a7552d461018c83ef7e8fcb621 Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Wed, 5 Feb 2014 09:48:22 +0100
+Subject: [PATCH 7/9] Add a small helper python script to determine Platform
+
+---
+ get_os_release.py | 59 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 59 insertions(+)
+ create mode 100644 get_os_release.py
+
+diff --git a/get_os_release.py b/get_os_release.py
+new file mode 100644
+index 0000000..98cb10a
+--- /dev/null
++++ b/get_os_release.py
+@@ -0,0 +1,59 @@
++#!/usr/bin/python
++
++import platform
++# import all referenced packages
++import os
++import sys
++ 
++# method returns number of CPUs in the system
++def cpu_count():
++    ''' Returns the number of CPUs in the system
++    '''
++    num = 1
++    if sys.platform == 'win32':
++        # fetch the cpu count for windows systems
++        try:
++            num = int(os.environ['NUMBER_OF_PROCESSORS'])
++        except (ValueError, KeyError):
++            pass
++    elif sys.platform == 'darwin':
++        # fetch teh cpu count for MacOS X systems
++        try:
++            num = int(os.popen('sysctl -n hw.ncpu').read())
++        except ValueError:
++            pass
++    else:
++        # an finally fetch the cpu count for Unix-like systems
++        try:
++            num = os.sysconf('SC_NPROCESSORS_ONLN')
++        except (ValueError, OSError, AttributeError):
++            pass
++ 
++    return num
++ 
++ 
++# test the method
++print( cpu_count() )
++
++plt_name = "unknown"
++plt_ver  = ""
++plt_arch = ""   
++
++plt_type = platform.system()
++if plt_type=='Linux':
++    plt_name, plt_ver, plt_release  = platform.linux_distribution()
++    # On Debian system need to get rid of some part of version
++    # ex: jessie/sid
++    plt_ver = plt_ver.rsplit("/")[0]
++if plt_type=='Windows':
++    plt_name, plt_ver, plt_release  = platform.win32_ver()
++if plt_type=='Darwin':
++    plt_name, plt_ver, plt_release  = platform.mac_ver()
++
++plt_arch, plt_exec = platform.architecture()
++
++print plt_name
++print plt_ver
++print plt_arch
++
++
+-- 
+1.8.5.3
+

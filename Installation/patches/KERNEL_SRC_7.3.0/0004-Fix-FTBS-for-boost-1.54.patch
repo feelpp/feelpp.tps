@@ -1,0 +1,49 @@
+From d6f385c7258ed4fdd7a61caecce99a4da969eb89 Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Tue, 4 Feb 2014 17:59:42 +0100
+Subject: [PATCH 4/4] Fix FTBS for boost 1.54
+
+---
+ src/DF/DF_definitions.hxx                         | 7 ++++---
+ src/SALOMEDSClient/SALOMEDSClient_definitions.hxx | 7 ++++---
+ 2 files changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/src/DF/DF_definitions.hxx b/src/DF/DF_definitions.hxx
+index 626c6e3..71bb0b8 100755
+--- a/src/DF/DF_definitions.hxx
++++ b/src/DF/DF_definitions.hxx
+@@ -46,9 +46,10 @@ public:
+       }
+   
+   template<class Y>
+-    df_shared_ptr(df_shared_ptr<Y> const & r):
+-      boost::shared_ptr<T>(r,boost::detail::dynamic_cast_tag())
+-        {}
++    df_shared_ptr(df_shared_ptr<Y> const & r)
++      {
++        boost::dynamic_pointer_cast<T>(r);
++      }
+   
+   template<class Y>
+     df_shared_ptr & operator=(df_shared_ptr<Y> const & r)
+diff --git a/src/SALOMEDSClient/SALOMEDSClient_definitions.hxx b/src/SALOMEDSClient/SALOMEDSClient_definitions.hxx
+index 4a8446a..e7f5ad5 100755
+--- a/src/SALOMEDSClient/SALOMEDSClient_definitions.hxx
++++ b/src/SALOMEDSClient/SALOMEDSClient_definitions.hxx
+@@ -47,9 +47,10 @@ public:
+       }
+   
+   template<class Y>
+-    clt_shared_ptr(clt_shared_ptr<Y> const & r):
+-      boost::shared_ptr<T>(r,boost::detail::dynamic_cast_tag())
+-        {}
++    clt_shared_ptr(clt_shared_ptr<Y> const & r)
++      {
++        boost::dynamic_pointer_cast<T>(r);
++      }
+   
+   template<class Y>
+     clt_shared_ptr & operator=(clt_shared_ptr<Y> const & r)
+-- 
+1.8.5.3
+

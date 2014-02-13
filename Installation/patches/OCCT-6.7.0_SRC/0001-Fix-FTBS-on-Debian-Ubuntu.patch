@@ -1,0 +1,43 @@
+From 7b7afbd8988407130006587d70565d4c9c062c0b Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Tue, 4 Feb 2014 15:30:33 +0100
+Subject: [PATCH] Fix FTBS on Debian/Ubuntu
+
+---
+ configure.ac | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 9fdfb98..677248a 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -145,7 +145,7 @@ CFLAGS="$CFLAGS -DCSFDB -DOCC_CONVERT_SIGNALS"
+ case $platform in
+ 	Linux*) CXXFLAGS="$CXXFLAGS -DLIN -DLININTEL -D_GNU_SOURCE=1 -mmmx -msse -msse2 -mfpmath=sse -Wall"
+ 		CFLAGS="$CFLAGS -DLIN -DLININTEL -fexceptions -mmmx -msse -msse2 -mfpmath=sse -Wall"
+-		LDFLAGS="$LDFLAGS -lstdc++ -lrt";;
++		LDFLAGS=" -Wl,--no-as-needed $LDFLAGS -lstdc++ -lrt";;
+ 	SunOS*) CXXFLAGS="$CXXFLAGS -Usun -DSOLARIS -instances=static"
+ 		CFLAGS="$CFLAGS -Usun -DSOLARIS -instances=static"
+ 		LDFLAGS="$LDFLAGS -instances=static"
+@@ -540,7 +540,7 @@ else
+       CPPFLAGS_old=${CPPFLAGS}
+       LDFLAGS_old=${LDFLAGS}
+       CPPFLAGS="${FTGL_INCLUDES} ${HAVE_FTGL_UPPERCASE} ${CSF_FREETYPE_INCLUDES} $CPPFLAGS"
+-      LDFLAGS="${FTGL_LIBS} ${CSF_FREETYPE_LIB} $LDFLAGS"
++      LDFLAGS="$LDFLAGS ${FTGL_LIBS} ${CSF_FREETYPE_LIB} "
+       AC_CHECK_HEADERS([${hf}], 
+       [
+         HAVE_FTGL_INC=yes
+@@ -562,7 +562,7 @@ else
+           #endif
+         ],
+         [
+-          FTGLTextureFont font("");
++          FTTextureFont * font = new FTTextureFont("");
+         ],
+         [
+           AC_MSG_RESULT(yes)
+-- 
+1.8.5.3
+

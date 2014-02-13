@@ -1,0 +1,24 @@
+From 17d7026193f6d818320164f8114ab2f198033b1d Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Tue, 4 Feb 2014 15:07:48 +0100
+Subject: [PATCH 3/9] Fix KERNEL.sh
+
+---
+ config_files/KERNEL.sh | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/config_files/KERNEL.sh b/config_files/KERNEL.sh
+index fd90ad1..d4ae640 100755
+--- a/config_files/KERNEL.sh
++++ b/config_files/KERNEL.sh
+@@ -143,7 +143,6 @@ if [ -f ${PRODUCT_DIR}/bin/salome/createAppli.sh ] ; then
+     pushd ${PRODUCT_DIR} > /dev/null
+     version=`cat bin/salome/VERSION | awk -F: '{print $2}' | tr -d '[:space:]'`
+     dir="${HOME}/salome_appli_${version}"
+-    mkdir -p ${dir}
+     ./bin/salome/createAppli.sh ${dir}
+     if [ -d ${dir}/env.d ] ; then
+ 	rm -rf ${dir}/env.d/*.sh
+-- 
+1.8.5.3
+

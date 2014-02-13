@@ -1,0 +1,25 @@
+From 360242aae0c1b91e4b9aae3a7d317ca43ce9872c Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Tue, 4 Feb 2014 15:32:38 +0100
+Subject: [PATCH 2/2] Fix FTBS on Debian/Ubuntu
+
+---
+ src/Plugins/MedReader/IO/Testing/Cxx/TestMedParallelRead.cxx | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/Plugins/MedReader/IO/Testing/Cxx/TestMedParallelRead.cxx b/src/Plugins/MedReader/IO/Testing/Cxx/TestMedParallelRead.cxx
+index dc4f91e..0960c1d 100755
+--- a/src/Plugins/MedReader/IO/Testing/Cxx/TestMedParallelRead.cxx
++++ b/src/Plugins/MedReader/IO/Testing/Cxx/TestMedParallelRead.cxx
+@@ -47,6 +47,8 @@
+ # endif
+ #endif
+ 
++#include <ctime>
++
+ int main (int argc, char **argv)
+ {
+   med_err _ret=0;
+-- 
+1.8.5.3
+

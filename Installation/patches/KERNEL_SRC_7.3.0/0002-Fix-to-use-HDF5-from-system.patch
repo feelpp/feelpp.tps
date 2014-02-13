@@ -1,0 +1,84 @@
+From 3db925e6817ce512ee6ad2a77bad80cf421bb013 Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Tue, 4 Feb 2014 15:02:15 +0100
+Subject: [PATCH 2/4] Fix to use HDF5 from system
+
+---
+ salome_adm/cmake_files/FindSalomeHDF5.cmake | 55 +++++++++++++++--------------
+ 1 file changed, 29 insertions(+), 26 deletions(-)
+
+diff --git a/salome_adm/cmake_files/FindSalomeHDF5.cmake b/salome_adm/cmake_files/FindSalomeHDF5.cmake
+index 6b227fa..4f59832 100755
+--- a/salome_adm/cmake_files/FindSalomeHDF5.cmake
++++ b/salome_adm/cmake_files/FindSalomeHDF5.cmake
+@@ -39,38 +39,41 @@ SALOME_FIND_PACKAGE_AND_DETECT_CONFLICTS(HDF5 HDF5_INCLUDE_DIR 1)
+ MARK_AS_ADVANCED(FORCE HDF5_INCLUDE_DIR HDF5_LIB HDF5_DIR)
+ 
+ # Stupidly enough, CONFIG mode and MODULE mode for HDF5 do not return the same thing ...!
+-SET(HDF5_INCLUDE_DIRS "${HDF5_INCLUDE_DIRS};${HDF5_INCLUDE_DIR}")
++#SET(HDF5_INCLUDE_DIRS "${HDF5_INCLUDE_DIRS};${HDF5_INCLUDE_DIR}")
+ # Same story with libraries - if in CONFIG mode, HDF5_LIBRARIES is not defined:
+-IF(NOT DEFINED HDF5_LIBRARIES)
+-  SET(HDF5_LIBRARIES hdf5)
+-ENDIF()
++#IF(NOT DEFINED HDF5_LIBRARIES)
++#  SET(HDF5_LIBRARIES hdf5)
++#ENDIF()
+ 
+ ##
+ ## 7. Specific to HDF5 only:
+ ## Expose MPI configuration to the rest of the world
+ ##
+-IF(HDF5_ENABLE_PARALLEL OR HDF5_IS_PARALLEL)
+-  # Set only one reference boolean variable:
+-  # (unfortunately what is found in /usr/share/cmake/Modules/FindHDF5.cmake
+-  #  and in the native HDF5-config.cmake differ!)
+-  SET(HDF5_IS_PARALLEL TRUE)
+-
+-  # HDF5 was compiled with MPI support
+-  # Unfortunately HDF5 doesn't expose its MPI configuration easily ...
+-  # We sniff the properties of the HDF5 target which should also be there:
+-  GET_PROPERTY(_lib_lst TARGET hdf5 PROPERTY IMPORTED_LINK_INTERFACE_LIBRARIES_NOCONFIG)
+-  FOREACH(s ${_lib_lst})
+-    STRING(FIND "${s}" "mpi." _res)   # should cover WIN(?) and LINUX
+-    IF(_res GREATER -1)
+-      GET_FILENAME_COMPONENT(_tmp "${s}" PATH)     # go up to levels
+-      GET_FILENAME_COMPONENT(MPI_ROOT_DIR_EXP "${_tmp}" PATH)
+-      BREAK()
+-    ENDIF()
+-  ENDFOREACH()
+-  IF(NOT SalomeHDF5_FIND_QUIETLY)
+-    MESSAGE(STATUS "HDF5 was compiled with MPI: ${MPI_ROOT_DIR_EXP}")
+-  ENDIF()  
+-ENDIF()
++#IF(HDF5_ENABLE_PARALLEL OR HDF5_IS_PARALLEL)
++#  # Set only one reference boolean variable:
++#  # (unfortunately what is found in /usr/share/cmake/Modules/FindHDF5.cmake
++#  #  and in the native HDF5-config.cmake differ!)
++#  SET(HDF5_IS_PARALLEL TRUE)
++#
++#  # HDF5 was compiled with MPI support
++#  # Unfortunately HDF5 doesn't expose its MPI configuration easily ...
++#  # We sniff the properties of the HDF5 target which should also be there:
++#  GET_PROPERTY(_lib_lst TARGET hdf5 PROPERTY IMPORTED_LINK_INTERFACE_LIBRARIES_NOCONFIG)
++#  FOREACH(s ${_lib_lst})
++#    STRING(FIND "${s}" "mpi." _res)   # should cover WIN(?) and LINUX
++#    IF(_res GREATER -1)
++#      GET_FILENAME_COMPONENT(_tmp "${s}" PATH)     # go up to levels
++#      GET_FILENAME_COMPONENT(MPI_ROOT_DIR_EXP "${_tmp}" PATH)
++#      BREAK()
++#    ENDIF()
++#  ENDFOREACH()
++#  IF(NOT SalomeHDF5_FIND_QUIETLY)
++#    MESSAGE(STATUS "HDF5 was compiled with MPI: ${MPI_ROOT_DIR_EXP}")
++#  ENDIF()  
++#ENDIF()
++IF(HDF5_IS_PARALLEL)
++    MESSAGE(STATUS "HDF5 was compiled with MPI")
++ENDIF()  
+ 
+ ## Add definitions
+ ADD_DEFINITIONS(-DH5_USE_16_API)
+-- 
+1.8.5.3
+

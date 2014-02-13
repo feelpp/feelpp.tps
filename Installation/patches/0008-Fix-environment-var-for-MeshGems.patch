@@ -1,0 +1,32 @@
+From 81ccb5981b308a8e016d67305e201daea70b1e57 Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Thu, 6 Feb 2014 14:49:04 +0100
+Subject: [PATCH 8/9] Fix environment var for MeshGems
+
+---
+ config_files/DISTENE.sh | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/config_files/DISTENE.sh b/config_files/DISTENE.sh
+index 2c0cfe7..8f07e65 100755
+--- a/config_files/DISTENE.sh
++++ b/config_files/DISTENE.sh
+@@ -39,11 +39,11 @@ print_env_sys()
+ if [ -z $DISTENE_HOME ]; then
+    export DISTENE_HOME=/opt/DISTENE
+ fi
+-export MESHGEMS_ROOT_DIR=${DISTENE_HOME}/MeshGems-${VERSION_MESHGEMS}/Products
+-export LD_LIBRARY_PATH=${MESHGEMS_ROOT_DIR}/lib/Linux${PLT_SUFFIX}:\${LD_LIBRARY_PATH} 
+-export PATH=${MESHGEMS_ROOT_DIR}/bin/Linux${PLT_SUFFIX}:\${PATH} 
++export MESHGEMS_ROOT_DIR=\${DISTENE_HOME}/MeshGems-${VERSION_MESHGEMS}/Products
++export LD_LIBRARY_PATH=\${MESHGEMS_ROOT_DIR}/lib/Linux${PLT_SUFFIX}:\${LD_LIBRARY_PATH} 
++export PATH=\${MESHGEMS_ROOT_DIR}/bin/Linux${PLT_SUFFIX}:\${PATH} 
+ # license activation
+-export LICENSE_FILE=${DISTENE_HOME}/Tools/bin/dlim8.var.sh
++export LICENSE_FILE=\${DISTENE_HOME}/Tools/bin/dlim8.var.sh
+ if [ -e "${LICENSE_FILE}" ] ; then
+     export SIMULOGD_LICENSE_FILE=${LIC_FILE}
+     export DISTENE_LICENSE_FILE='Use global envvar: DLIM8VAR'
+-- 
+1.8.5.3
+

@@ -1,0 +1,64 @@
+From eab614b15a66cc4d7218e2fa6f5babcb263d752b Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Tue, 4 Feb 2014 15:36:58 +0100
+Subject: [PATCH] Fix for boost 1.54
+
+---
+ src/MEDWrapper/Base/MED_SharedPtr.hxx | 9 +++++----
+ src/MEDWrapper/Base/MED_Wrapper.hxx   | 9 +++++----
+ 2 files changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/src/MEDWrapper/Base/MED_SharedPtr.hxx b/src/MEDWrapper/Base/MED_SharedPtr.hxx
+index d0f4746..9ff4c3c 100755
+--- a/src/MEDWrapper/Base/MED_SharedPtr.hxx
++++ b/src/MEDWrapper/Base/MED_SharedPtr.hxx
+@@ -48,16 +48,17 @@ namespace MED
+ 
+     //! Construct the class by any specialisation of the class
+     template<class Y>
+-    SharedPtr(SharedPtr<Y> const & r):
+-      boost::shared_ptr<T>(r,boost::detail::dynamic_cast_tag())
+-    {}
++    SharedPtr(SharedPtr<Y> const & r)
++    {
++      boost::dynamic_pointer_cast<T>(r);
++    }
+ 
+     //! Copy-constructor
+     template<class Y>
+     SharedPtr& 
+     operator=(SharedPtr<Y> const & r)
+     {
+-      boost::shared_ptr<T>(r,boost::detail::dynamic_cast_tag()).swap(*this);
++      boost::dynamic_pointer_cast<T>(r).swap(*this);
+       return *this;
+     }
+ 
+diff --git a/src/MEDWrapper/Base/MED_Wrapper.hxx b/src/MEDWrapper/Base/MED_Wrapper.hxx
+index 027c9a5..bd99689 100755
+--- a/src/MEDWrapper/Base/MED_Wrapper.hxx
++++ b/src/MEDWrapper/Base/MED_Wrapper.hxx
+@@ -1001,15 +1001,16 @@ namespace MED
+     {}
+ 
+     template<class Y>
+-    SharedPtr(SharedPtr<Y> const & r):
+-      boost::shared_ptr<TWrapper>(r,boost::detail::dynamic_cast_tag())
+-    {}
++    SharedPtr(SharedPtr<Y> const & r)
++    {
++      boost::dynamic_pointer_cast<TWrapper>(r);
++    }
+ 
+     template<class Y>
+     SharedPtr& 
+     operator=(SharedPtr<Y> const & r)
+     {
+-      boost::shared_ptr<TWrapper>(r,boost::detail::dynamic_cast_tag()).swap(*this);
++      boost::dynamic_pointer_cast<TWrapper>(r).swap(*this);
+       return *this;
+     }
+ 
+-- 
+1.8.5.3
+

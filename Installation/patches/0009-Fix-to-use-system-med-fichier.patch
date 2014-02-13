@@ -1,0 +1,52 @@
+From 08facdd3879715de6234a540028b6960efe24bef Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Tue, 11 Feb 2014 16:47:42 +0100
+Subject: [PATCH 9/9] Fix to use system med-fichier
+
+---
+ config_files/med.sh | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/config_files/med.sh b/config_files/med.sh
+index c4925b4..19fc26f 100755
+--- a/config_files/med.sh
++++ b/config_files/med.sh
+@@ -16,6 +16,7 @@
+ # med library version
+ #
+ VERSION_MED=3.0.7
++MED_XVERSION=`echo ${VERSION_MED} | awk -F. '{printf("%d",$1*10000+$2*100+$3)}'`
+ 
+ check_version()
+ {
+@@ -77,6 +78,19 @@ try_preinstalled
+ 
+ install_source_and_build()
+ {
++	status=1
++	if [ -f /usr/include/med.h ] ; then
++	    ver_major=`grep "#define MED_MAJOR_NUM" /usr/include/med.h | awk '{print $3}' | sed -e 's/^\([0-9]*\).*$/\1/'`
++	    ver_minor=`grep "#define MED_MINOR_NUM" /usr/include/med.h | awk '{print $3}' | sed -e 's/^\([0-9]*\).*$/\1/'`
++	    ver_maint=`grep "#define MED_RELEASE_NUM" /usr/include/med.h | awk '{print $3}' | sed -e 's/^\([0-9]*\).*$/\1/'`
++	    let ver=${ver_major}*10000+${ver_minor}*100+${ver_maint}
++	    if [ "${ver}" -ge "${MED_XVERSION}" ] ; then
++		status=0
++	    fi
++	fi
++	if [ "$status" = "0" ]; then
++	    echo "Use built-in med"
++else
+ # install sources
+ install_source
+ 
+@@ -133,6 +147,7 @@ fi
+ 
+ # to generate environment scripts
+ try_preinstalled
++fi
+ }
+ 
+ install_binary()
+-- 
+1.8.5.3
+

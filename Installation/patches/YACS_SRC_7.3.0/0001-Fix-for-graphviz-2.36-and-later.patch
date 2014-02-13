@@ -1,0 +1,349 @@
+From c8041db89a351b3771761468bfe25d818a044872 Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Tue, 4 Feb 2014 15:39:09 +0100
+Subject: [PATCH] Fix for graphviz 2.36 and later
+
+---
+ adm/cmake/FindGraphviz.cmake     |  44 ++++++++++++---
+ src/genericgui/SceneBlocItem.cxx | 114 +++++++++++++++++++++++++++++++++++++--
+ src/genericgui/SceneBlocItem.hxx |   4 ++
+ 3 files changed, 153 insertions(+), 9 deletions(-)
+
+diff --git a/adm/cmake/FindGraphviz.cmake b/adm/cmake/FindGraphviz.cmake
+index d25cffe..161eca9 100755
+--- a/adm/cmake/FindGraphviz.cmake
++++ b/adm/cmake/FindGraphviz.cmake
+@@ -29,22 +29,50 @@
+ #
+ ###########################################################################
+ 
++# ------
++
++MESSAGE(STATUS "Check for Graphviz ...")
++
++# ------
++
++#SET(GRAPHVIZ_ROOT_DIR $ENV{GRAPHVIZ_ROOT_DIR} CACHE PATH "Path to Graphviz.")
++#IF(GRAPHVIZ_ROOT_DIR)
++#  LIST(APPEND CMAKE_PREFIX_PATH "${GRAPHVIZ_ROOT_DIR}")
++#ENDIF(GRAPHVIZ_ROOT_DIR)
++
+ FIND_PROGRAM(GRAPHVIZ_EXECUTABLE dot)
+ 
+-FIND_PATH(GRAPHVIZ_INCLUDE_DIR NAMES graphviz/graph.h)
++FIND_PATH(GRAPHVIZ_INCLUDE_DIR NAMES graphviz/cgraph.h )
+ SET(GRAPHVIZ_INCLUDE_DIRS ${GRAPHVIZ_INCLUDE_DIR} ${GRAPHVIZ_INCLUDE_DIR}/graphviz)
++MESSAGE(STATUS "GRAPHVIZ_INCLUDE_DIRS=" ${GRAPHVIZ_INCLUDE_DIRS})
+ 
+-FIND_LIBRARY(GRAPHVIZ_cdt_LIBRARY      NAMES cdt PATH_SUFFIXES bin)
+-FIND_LIBRARY(GRAPHVIZ_graph_LIBRARY    NAMES graph PATH_SUFFIXES bin)
+-FIND_LIBRARY(GRAPHVIZ_gvc_LIBRARY      NAMES gvc PATH_SUFFIXES bin)
+-FIND_LIBRARY(GRAPHVIZ_pathplan_LIBRARY NAMES pathplan PATH_SUFFIXES bin)
++# For graphviz >= 2.36
++FIND_PATH(GRAPH_INCLUDE_DIR NAMES graphviz/graph.h )
++MESSAGE(STATUS "GRAPH_INCLUDE_DIR=" ${GRAPHVIZ_INCLUDE_DIR})
++IF(NOT GRAPH_INCLUDE_DIR)
++  MESSAGE(STATUS "no graph.h detected - Activate cgraph support only")
++  ADD_DEFINITIONS( -DWITH_CGRAPH)
++ENDIF()
++
++SET(GRAPHVIZ_INCLUDE_DIRS ${GRAPHVIZ_INCLUDE_DIR} ${GRAPHVIZ_INCLUDE_DIR}/graphviz)
++MESSAGE(STATUS "GRAPHVIZ_INCLUDE_DIRS=" ${GRAPHVIZ_INCLUDE_DIRS})
++
++FIND_LIBRARY(GRAPHVIZ_cdt_LIBRARY      NAMES cdt)
++IF(NOT GRAPH_INCLUDE_DIR)
++  FIND_LIBRARY(GRAPHVIZ_cgraph_LIBRARY    NAMES cgraph)
++ELSE()
++  FIND_LIBRARY(GRAPHVIZ_cgraph_LIBRARY    NAMES graph)
++ENDIF()
++FIND_LIBRARY(GRAPHVIZ_gvc_LIBRARY      NAMES gvc)
++FIND_LIBRARY(GRAPHVIZ_pathplan_LIBRARY NAMES pathplan)
+ 
+ SET(GRAPHVIZ_LIBRARIES 
+   ${GRAPHVIZ_cdt_LIBRARY}
+-  ${GRAPHVIZ_graph_LIBRARY} 
++  ${GRAPHVIZ_cgraph_LIBRARY} 
+   ${GRAPHVIZ_gvc_LIBRARY}
+   ${GRAPHVIZ_pathplan_LIBRARY}
+   )
++MESSAGE(STATUS "GRAPHVIZ_LIBRARIES=" ${GRAPHVIZ_LIBRARIES})
+ 
+ ## Don't detect cgraph on Windows
+ #IF(NOT WIN32)
+@@ -58,3 +86,7 @@ FIND_PACKAGE_HANDLE_STANDARD_ARGS(Graphviz REQUIRED_VARS
+ 					   GRAPHVIZ_EXECUTABLE 
+ 					   GRAPHVIZ_LIBRARIES 
+ 					   GRAPHVIZ_INCLUDE_DIRS)
++
++mark_as_advanced( GRAPHVIZ_EXECUTABLE )
++mark_as_advanced( GRAPHVIZ_INCLUDE_DIRS )
++mark_as_advanced( GRAPHVIZ_LIBRARIES )
+diff --git a/src/genericgui/SceneBlocItem.cxx b/src/genericgui/SceneBlocItem.cxx
+index ffd0a4e..1df984b 100755
+--- a/src/genericgui/SceneBlocItem.cxx
++++ b/src/genericgui/SceneBlocItem.cxx
+@@ -40,10 +40,13 @@
+   #include <gvc.h>
+ #endif
+ 
+-#ifndef ND_coord_i
++#ifdef WITH_CGRAPH
++#define ND_coord_i(n) (((Agnodeinfo_t*)AGDATA(n))->coord) 
++#else
+ #define ND_coord_i(n) (n)->u.coord
+ #endif
+ 
++
+ #include "Resource.hxx"
+ 
+ //#define _DEVDEBUG_
+@@ -96,64 +99,132 @@ void SceneBlocItem::arrangeChildNodes()
+       DEBTRACE(setlocale(LC_ALL,NULL));
+       //Graphviz is sensitive to locale : set the mimimal one ("C")for numeric
+       setlocale(LC_NUMERIC, "C");
++      #ifndef WITH_CGRAPH
+       aginit();
++      #endif
+       aGvc = gvContext();
+     }
+ 
+   // ---- Create a graph
+ 
++  #ifdef WITH_CGRAPH
++  _graph = agopen((char*)( cnode->getName().c_str()), Agdirected, NULL);
++  #else
+   _graph = agopen((char*)( cnode->getName().c_str()), AGDIGRAPH);
++  #endif
+ 
+   // ---- Initialize and set attributes for the graph
+   
+   Agsym_t* attr;
++  #ifndef WITH_CGRAPH
+   if ( !(attr = agfindattr(_graph, (char *)"compound")))
+     attr = agraphattr(_graph, (char *)"compound", (char *)"false");
+   agxset(_graph, attr->index, (char *)"true");
++  #else
++  if ( !(attr = agattr(_graph, AGRAPH, (char *)"compound", NULL)))
++    attr = agattr(_graph, AGRAPH, (char *)"compound", (char *)"false");
++  agxset(_graph, attr, (char *)"true");
++  #endif
+ 
++  #ifndef WITH_CGRAPH
+   if ( !(attr = agfindattr(_graph, (char *)"rankdir")))
+     attr = agraphattr(_graph, (char *)"rankdir", (char *)"TB");
+   agxset(_graph, attr->index, (char *)"LR");
++  #else
++  if ( !(attr = agattr(_graph, AGRAPH, (char *)"rankdir", NULL)))
++    attr = agattr(_graph, AGRAPH, (char *)"rankdir", (char *)"TB");
++  agxset(_graph, attr, (char *)"LR");
++  #endif
+ 
+ //   if ( !(attr = agfindattr(_graph, (char *)"ordering")))
+ //     attr = agraphattr(_graph, (char *)"ordering", (char *)"" );
+ //   agxset(_graph, attr->index, (char *)"in" );
+   
++  #ifndef WITH_CGRAPH
+   if ( !(attr = agfindattr(_graph, (char *)"dpi")))
+     attr = agraphattr(_graph, (char *)"dpi", (char *)"72");
+   agxset(_graph, attr->index, (char *)"72"); // --- must be coherent with #define DPI
++  #else
++  if ( !(attr = agattr(_graph, AGRAPH, (char *)"dpi", NULL)))
++    attr = agattr(_graph, AGRAPH, (char *)"dpi", (char *)"72");
++  agxset(_graph, attr, (char *)"72"); // --- must be coherent with #define DPI
++  #endif
+ 
+   // --- label is used to reserve place for bloc banners (adjust size with font !)
+ 
++  #ifndef WITH_CGRAPH
+   if ( !(attr = agfindattr(_graph, (char *)"label")))
+     attr = agraphattr(_graph, (char *)"label", (char *)"label");
+   agxset(_graph, attr->index, (char *)"myLabel");
++  #else
++  if ( !(attr = agattr(_graph, AGRAPH, (char *)"label", NULL)))
++    attr = agattr(_graph, AGRAPH, (char *)"label", (char *)"label");
++  agxset(_graph, attr, (char *)"myLabel");
++  #endif
+ 
++  #ifndef WITH_CGRAPH
+   if ( !(attr = agfindattr(_graph, (char *)"labelloc")))
+     attr = agraphattr(_graph, (char *)"labelloc", (char *)"top");
+   agxset(_graph, attr->index, (char *)"top");
++  #else
++  if ( !(attr = agattr(_graph, AGRAPH, (char *)"labelloc", NULL)))
++    attr = agattr(_graph, AGRAPH, (char *)"labelloc", (char *)"top");
++  agxset(_graph, attr, (char *)"top");
++  #endif
+ 
++  #ifndef WITH_CGRAPH
+   if ( !(attr = agfindattr(_graph, (char *)"fontsize")))
+     attr = agraphattr(_graph, (char *)"fontsize", (char *)"24");
+   agxset(_graph, attr->index, (char *)"24");
++  #else
++  if ( !(attr = agattr(_graph, AGRAPH, (char *)"fontsize", NULL)))
++    attr = agattr(_graph, AGRAPH, (char *)"fontsize", (char *)"24");
++  agxset(_graph, attr, (char *)"24");
++  #endif
+ 
++  #ifndef WITH_CGRAPH
+   if ( !(attr = agfindattr(_graph, (char *)"splines")))
+     attr = agraphattr(_graph, (char *)"splines", (char *)"");
+   agxset(_graph, attr->index, (char *)"");
++  #else
++  if ( !(attr = agattr(_graph, AGRAPH, (char *)"splines", NULL)))
++    attr = agattr(_graph, AGRAPH, (char *)"splines", (char *)"");
++  agxset(_graph, attr, (char *)"");
++  #endif
+ 
+   // --- Initialize attributes for nodes
+ 
++  #ifndef WITH_CGRAPH
+   if ( !(attr = agfindattr( _graph->proto->n, (char *)"height")))
+     attr = agnodeattr(_graph, (char *)"height", (char *)"" );
++  #else
++  if ( !(attr = agattr( _graph, AGNODE, (char *)"height", NULL)))
++    attr = agattr(_graph, AGNODE, (char *)"height", (char *)"" );
++  #endif
+ 
++  #ifndef WITH_CGRAPH
+   if ( !(attr = agfindattr( _graph->proto->n, (char *)"width")))
+     attr = agnodeattr(_graph, (char *)"width", (char *)"" );
++  #else
++  if ( !(attr = agattr( _graph, AGNODE, (char *)"width", NULL)))
++    attr = agattr(_graph, AGNODE, (char *)"width", (char *)"" );
++  #endif
+ 
++  #ifndef WITH_CGRAPH
+   if ( !(attr = agfindattr( _graph->proto->n, (char *)"shape")))
+     attr = agnodeattr(_graph, (char *)"shape", (char *)"" );
++  #else
++  if ( !(attr = agattr( _graph, AGNODE, (char *)"shape", NULL)))
++    attr = agattr(_graph, AGNODE, (char *)"shape", (char *)"" );
++  #endif
+ 
++  #ifndef WITH_CGRAPH
+   if ( !(attr = agfindattr( _graph->proto->n, (char *)"fixedsize")))
+     attr = agnodeattr(_graph, (char *)"fixedsize", (char *)"false" );
++  #else
++  if ( !(attr = agattr( _graph, AGNODE, (char *)"fixedsize", NULL)))
++    attr = agattr(_graph, AGNODE, (char *)"fixedsize", (char *)"false" );
++  #endif
+ 
+   // ---- Bind graph to graphviz context - must be done before layout
+   // ---- Compute a layout
+@@ -240,7 +311,11 @@ void  SceneBlocItem::getNodesInfo(YACS::ENGINE::ComposedNode *cnode)
+   list<Node*> children = cnode->edGetDirectDescendants();
+   for (list<Node*>::iterator it = children.begin(); it != children.end(); ++it)
+     {
++      #ifndef WITH_CGRAPH
+       Agnode_t* aNode = agnode(_graph, (char*)(proc->getChildName(*it).c_str()));
++      #else      
++      Agnode_t* aNode = agnode(_graph, (char*)(proc->getChildName(*it).c_str()), TRUE);
++      #endif
+       DEBTRACE("Add node in graph: " << aNode->name);
+ 
+       SubjectNode* snode = GuiContext::getCurrent()->_mapOfSubjectNode[(*it)];
+@@ -255,10 +330,17 @@ void  SceneBlocItem::getNodesInfo(YACS::ENGINE::ComposedNode *cnode)
+       width  = QString(_format.c_str()).arg(lw, 0, 'g', 3);
+ 
+       DEBTRACE(aNode->name << " (" << nh << "," << nw << ") = (" << height.toStdString()  << " ; " << width.toStdString() <<")");
++      #ifndef WITH_CGRAPH
+       agxset( aNode, agfindattr(_graph->proto->n,(char *)"height")->index, (char*)(height.toAscii().data()));
+       agxset( aNode, agfindattr(_graph->proto->n,(char *)"width")->index, (char*)(width.toAscii().data()));
+       agxset( aNode, agfindattr(_graph->proto->n,(char *)"shape")->index, (char *)"box" );
+       agxset( aNode, agfindattr(_graph->proto->n,(char *)"fixedsize")->index, (char *)"true" );
++      #else
++      agxset( aNode, agattr(_graph, AGNODE, (char *)"height", (char *)""), (char*)(height.toAscii().data()));
++      agxset( aNode, agattr(_graph, AGNODE, (char *)"width", (char *)""), (char*)(width.toAscii().data()));
++      agxset( aNode, agattr(_graph, AGNODE, (char *)"shape", (char *)""), (char *)"box" );
++      agxset( aNode, agattr(_graph, AGNODE, (char *)"fixedsize", (char *)""), (char *)"true" );
++      #endif
+     }
+ 
+   // --- Create edges (i.e. links)
+@@ -266,10 +348,19 @@ void  SceneBlocItem::getNodesInfo(YACS::ENGINE::ComposedNode *cnode)
+   Agnode_t* aNode;
+   for (aNode = agfstnode(_graph); aNode; aNode = agnxtnode(_graph, aNode))
+   {
++    #ifndef WITH_CGRAPH
+     string aNodeName = aNode->name;
+     DEBTRACE("--- tail node " << aNode->name);
++    #else
++    string aNodeName = agnameof(aNode);
++    DEBTRACE("--- tail node " << agnameof(aNode));
++    #endif
+     Agnode_t* aTailNode = aNode;
++    #ifndef WITH_CGRAPH
+     Node* outNode = proc->getChildByName(string(aTailNode->name));
++    #else
++    Node* outNode = proc->getChildByName(agnameof(aTailNode));
++    #endif
+     if (outNode->getFather() != cnode)
+       {
+         DEBTRACE(" =========== problem here ! =============================");
+@@ -293,9 +384,15 @@ void  SceneBlocItem::getNodesInfo(YACS::ENGINE::ComposedNode *cnode)
+             {
+               DEBTRACE("--- edge inside the bloc " << inDCNode->getName());
+               string inDCName = proc->getChildName(inDCNode);
+-              Agnode_t* aHeadNode = agnode(_graph, (char*)(inDCName.c_str()));
++              #ifndef WITH_CGRAPH
++	      Agnode_t* aHeadNode = agnode(_graph, (char*)(inDCName.c_str()));
+               Agedge_t* anEdge    = agedge(_graph, aTailNode, aHeadNode);
+               DEBTRACE("--- control link from tail node: --- " << aNode->name << " --> " << inDCName);
++              #else
++	      Agnode_t* aHeadNode = agnode(_graph, (char*)(inDCName.c_str()), TRUE);
++              Agedge_t* anEdge    = agedge(_graph, aTailNode, aHeadNode, NULL, TRUE);
++              DEBTRACE("--- control link from tail node: --- " << agnameof(aNode) << " --> " << inDCName);
++              #endif
+             }
+         }
+     }
+@@ -318,9 +415,15 @@ void  SceneBlocItem::getNodesInfo(YACS::ENGINE::ComposedNode *cnode)
+                 {
+                   DEBTRACE("--- edge inside the bloc " << inDCNode->getName());
+                   string inDCName = proc->getChildName(inDCNode);
+-                  Agnode_t* aHeadNode = agnode(_graph, (char*)(inDCName.c_str()));
++                  #ifndef WITH_CGRAPH
++		  Agnode_t* aHeadNode = agnode(_graph, (char*)(inDCName.c_str()));
+                   Agedge_t* anEdge    = agedge(_graph, aTailNode, aHeadNode);
+                   DEBTRACE("------ data link from tail node: ---- " << aNode->name << " --> " << inDCName);
++                  #else
++		  Agnode_t* aHeadNode = agnode(_graph, (char*)(inDCName.c_str()), TRUE);
++                  Agedge_t* anEdge    = agedge(_graph, aTailNode, aHeadNode, NULL, TRUE);
++                  DEBTRACE("------ data link from tail node: ---- " << agnameof(aNode) << " --> " << inDCName);
++		  #endif
+                 }
+             }
+         }
+@@ -344,8 +447,13 @@ void SceneBlocItem::arrangeCanvasNodes(YACS::ENGINE::ComposedNode *cnode)
+   list<Node*> children = cnode->edGetDirectDescendants();
+   for (list<Node*>::iterator it = children.begin(); it != children.end(); ++it)
+     {
++      #ifndef WITH_CGRAPH
+       Agnode_t* aNode = agnode(_graph, (char*)(proc->getChildName(*it).c_str()));
+       DEBTRACE("Get node in graph: " << aNode->name);
++      #else
++      Agnode_t* aNode = agnode(_graph, (char*)(proc->getChildName(*it).c_str()), FALSE);
++      DEBTRACE("Get node in graph: " << agnameof(aNode));
++      #endif
+       SubjectNode* snode = GuiContext::getCurrent()->_mapOfSubjectNode[(*it)];
+       SceneItem* sci = QtGuiContext::getQtCurrent()->_mapOfSceneItem[snode];
+ 
+diff --git a/src/genericgui/SceneBlocItem.hxx b/src/genericgui/SceneBlocItem.hxx
+index 7139f3c..f632e3f 100755
+--- a/src/genericgui/SceneBlocItem.hxx
++++ b/src/genericgui/SceneBlocItem.hxx
+@@ -24,7 +24,11 @@
+ 
+ #include <string>
+ 
++#ifdef WITH_CGRAPH
++#include <gvc.h>
++#else
+ struct Agraph_t;
++#endif
+ 
+ namespace YACS
+ {
+-- 
+1.8.5.3
+

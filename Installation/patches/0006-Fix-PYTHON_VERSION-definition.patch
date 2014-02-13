@@ -1,0 +1,26 @@
+From 26f90db19cdf66a1c5d3029691b91cf1769680b1 Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Wed, 5 Feb 2014 09:48:00 +0100
+Subject: [PATCH 6/9] Fix PYTHON_VERSION definition
+
+---
+ config_files/Python.sh | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/config_files/Python.sh b/config_files/Python.sh
+index 3db6375..27553a6 100755
+--- a/config_files/Python.sh
++++ b/config_files/Python.sh
+@@ -39,6 +39,9 @@ return 1
+ print_env_sys()
+ {
+ echo "Using builtin python"
++cat > ${INSTALL_WORK}/env_${PRODUCT_TYPE}.sh <<EOF 
++export PYTHON_VERSION=${PY_LIBVERSION}
++EOF
+ }
+ 
+ print_env_bin()
+-- 
+1.8.5.3
+
