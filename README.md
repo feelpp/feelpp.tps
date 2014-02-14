@@ -45,14 +45,14 @@ It is here just for the records.
        * create it
        * copy Products/BINARIES/Debian_7_64bit/homard-10.7.tar.gz
 
-* Install the pre-requisites
+### Install the pre-requisites
 
 To speed up installation we strongly recommend to install the following pre-requisites:
 '''
 sudo apt-get install
 '''
 
-* Run the installer
+### Run the installer
 
 You can either run the installer from the install GUI or the command line:
 '''
@@ -61,7 +61,7 @@ You can either run the installer from the install GUI or the command line:
 It will also create a salome_appli_7.3.00 directory in $HOME.
 
 
-* Configuration
+## Configuration
 
 Copy Configuration/SalomeApp.xml to ${HOME}/salome_appli_7.3.00/env.d
 
@@ -76,12 +76,12 @@ To fix the library "libCALCULATOR.so cannot be found" :
    * Got to $HOME/salome_with_paraview-7.3.0/lib/salome/
    * Add libCALCULATOR.so as a link to libCALCULATOREngine.so
 
-* Todo
+## Todo
 
-Fix for boost 1.54
-Fix for graphviz 2.36
+* Fix for boost 1.54
+* Fix for graphviz 2.36
    
-Use OCE 0.15 instead of OCC 6.7.0
-Use installed netgen/libnglib
-Use metis 5.1   
+* Use OCE 0.15 instead of OCC 6.7.0
+* Use installed netgen/libnglib
+* Use metis 5.1   
   
