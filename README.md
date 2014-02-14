@@ -4,7 +4,8 @@ salome
 Repository for Salome 
 
 This repository contains patches needed to perform Salome 7.3.0
-installation on Debian/Ubuntu systems.
+installation on Debian/Ubuntu systems. You need a license for MeshGems
+from [Distene](http://www.meshgems.com/) to run the BLSURF, GHS3D[PRL] and HEXOTIC plugins. 
 
 The patches enable to use pre-requisites libraries already installed on
 your machine. You can also take advantages of your multiple cores to speed
@@ -88,6 +89,9 @@ To fix the library "libCALCULATOR.so cannot be found" :
 
 * Fix for boost 1.54
 * Fix for graphviz 2.36
+
+* Add automatic detection of MeshGems version
+* Add automatic detection of OCE version
    
 * Use OCE 0.15 instead of OCC 6.7.0
 * Use installed netgen/libnglib
