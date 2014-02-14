@@ -16,7 +16,7 @@ It uses standard OCC 6.7.0 instead.
 
 * Salome 7.3.0 do compile with boost1.54 but do not run with the library
 Therefore the installer use boost 1.52 from Salome distribution. Patches
-for boost1.54 present in Installation/Product/*_SRC_7.3.0 should not be applied.
+for boost1.54 present for KERNEL_SRC_7.3.0 and SMESH_SRC_7.3.0 should not be applied.
 They are here just for the records.
 
 * Salome 7.3.0 do not run with graphiz 2.36. No graphviz package should be
@@ -48,28 +48,36 @@ It is here just for the records.
 ### Install the pre-requisites
 
 To speed up installation we strongly recommend to install the following pre-requisites:
-'''
-sudo apt-get install
-'''
+```
+sudo apt-get install ...
+```
 
 ### Run the installer
 
-You can either run the installer from the install GUI or the command line:
-'''
+You can now run the installer:
+```
 ./runInstall --file=config_your_platform.xml  -d $HOME/salome_with_paraview-7.3.0 -b -a 
-'''
-It will also create a salome_appli_7.3.00 directory in $HOME.
+```
+It will also create a $HOME/salome_appli_7.3.00 directory.
 
+To get more details on the installer script run
+```
+runInstall --help
+```
 
 ## Configuration
 
-Copy Configuration/SalomeApp.xml to ${HOME}/salome_appli_7.3.00/env.d
+Copy Configuration/SalomeApp.xml to $HOME/salome_appli_7.3.00/env.d
 
 Define the following variables: 
-export SalomeAppConfig=${HOME}/salome_appli_7.3.00
+```
+export SalomeAppConfig=$HOME/salome_appli_7.3.00
+```
 
 Now Salome should work:
-${HOME}/salome_appli_7.3.00/runAppli
+```
+$HOME/salome_appli_7.3.00/runAppli
+```
 
 At this point you should get some warning in the console.
 To fix the library "libCALCULATOR.so cannot be found" :
@@ -84,4 +92,7 @@ To fix the library "libCALCULATOR.so cannot be found" :
 * Use OCE 0.15 instead of OCC 6.7.0
 * Use installed netgen/libnglib
 * Use metis 5.1   
+
+* Script the whole thing 
+
   
