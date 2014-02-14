@@ -50,7 +50,16 @@ It is here just for the records.
 
 To speed up installation we strongly recommend to install the following pre-requisites:
 ```
-sudo apt-get install ...
+sudo apt-get install python-dev swig2.0 python-sip-dev sip-dev
+sudo apt-get install python-qt4-dev pyqt4-dev-tools
+sudo apt-get install libqwt5-qt4-dev libhdf5-mpi-dev libtbb-dev
+sudo apt-get install libscotch-dev libptscotch-dev
+sudo apt-get install tcl8.6-dev tk8.6-dev
+sudo apt-get install libcos4-dev libomniorb4-dev libomnithread3-dev
+sudo apt-get install omniidl omniidl-python omniorb-idl omniorb-nameserver python-omniorb python-omniorb-omg 
+sudo apt-get install doxygen python-sphinx
+sudo apt-get install libgl2ps-dev libxml2-dev
+sudo apt-get install libbfreeimage-dev libfreetype6-dev libgd-dev
 ```
 
 ### Run the installer
@@ -86,6 +95,8 @@ To fix the library "libCALCULATOR.so cannot be found" :
    * Add libCALCULATOR.so as a link to libCALCULATOREngine.so
 
 ## Todo
+
+* Correct qwt.sh to use system libqwt
 
 * Fix for boost 1.54
 * Fix for graphviz 2.36
