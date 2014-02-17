@@ -1,0 +1,84 @@
+From b35dd3fb9f06473f862af221246213d810dc58a1 Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Mon, 17 Feb 2014 08:42:01 +0100
+Subject: [PATCH 12/12] Use of OCE instead of OCC
+
+---
+ config_files/OCCT.sh | 40 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+
+diff --git a/config_files/OCCT.sh b/config_files/OCCT.sh
+index 59b8b88..c1c0751 100755
+--- a/config_files/OCCT.sh
++++ b/config_files/OCCT.sh
+@@ -16,6 +16,7 @@
+ # Open CASCADE Technology version
+ #
+ VERSION_OCCT=6.7.0
++OCCT_XVERSION=`echo ${VERSION_OCCT} | awk -F. '{printf("%d",$1*10000+$2*100+$3)}'`
+ 
+ check_version()
+ {
+@@ -36,6 +37,30 @@ check_version()
+     return 1
+ }
+ 
++print_env_sys()
++    {
++	cat > ${INSTALL_WORK}/env_${PRODUCT_TYPE}.sh <<EOF 
++#${DELIM} ${PRODUCT_TYPE} ${DELIM}
++export CAS_ROOT_DIR=/usr/share/oce-0.15
++# Variable for Foundation Classes : 
++export CSF_UnitsLexicon=\${CAS_ROOT_DIR}/src/UnitsAPI/Lexi_Expr.dat 
++export CSF_UnitsDefinition=\${CAS_ROOT_DIR}/src/UnitsAPI/Units.dat 
++# Variable for DataExchange : 
++export CSF_SHMessage=\${CAS_ROOT_DIR}/src/SHMessage
++export CSF_XSMessage=\${CAS_ROOT_DIR}/src/XSMessage 
++# Variable for Font : 
++export CSF_MDTVFontDirectory=\${CAS_ROOT_DIR}/src/FontMFT 
++export CSF_MDTVTexturesDirectory=\${CAS_ROOT_DIR}/src/Textures 
++# Activation of OCCT Kernel multithreading :
++export MMGT_REENTRANT=1
++# this variable only needed for DRAWEXE
++export CASROOT=\${CAS_ROOT_DIR}
++##
++EOF
++	(test -w ${PRODUCT_DIR} && cp ${INSTALL_WORK}/env_${PRODUCT_TYPE}.sh ${PRODUCT_DIR})
++	make_env ${INST_ROOT} ${INSTALL_WORK} "${PRODUCT_SEQUENCE}" "${INSTALL_PRODUCTS}"
++    }
++
+ print_env_bin()
+     {
+ 	cat > ${INSTALL_WORK}/env_${PRODUCT_TYPE}.sh <<EOF 
+@@ -110,6 +135,20 @@ EOF
+ 
+     install_source_and_build()
+     {
++	status=1
++	if [ -f /usr/include/oce/Standard_Version.hxx ] ; then
++	    ver_major=`grep "#define OCC_VERSION_MAJOR" /usr/include/oce/Standard_Version.hxx | awk '{print $3}' | sed -e 's/^\([0-9]*\).*$/\1/'`
++	    ver_minor=`grep "#define OCC_VERSION_MINOR" /usr/include/oce/Standard_Version.hxx | awk '{print $3}' | sed -e 's/^\([0-9]*\).*$/\1/'`
++	    ver_maint=`grep "#define OCC_VERSION_MAINTENANCE" /usr/include/oce/Standard_Version.hxx | awk '{print $3}' | sed -e 's/^\([0-9]*\).*$/\1/'`
++	    let ver=${ver_major}*10000+${ver_minor}*100+${ver_maint}
++	    if [ "${ver}" -ge "${OCCT_XVERSION}" ] ; then
++		status=0
++	    fi
++	fi
++	if [ "$status" = "0" ]; then
++	    echo "Use built-in oce"
++	    print_env_sys
++	else
+ # install sources
+ 	install_source
+ 
+@@ -194,6 +233,7 @@ EOF
+ 
+ # to generate environment scripts
+ 	try_preinstalled
++	fi
+     }
+ 
+     install_binary()
+-- 
+1.8.5.3
+

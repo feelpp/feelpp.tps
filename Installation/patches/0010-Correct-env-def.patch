@@ -1,0 +1,25 @@
+From fc3df44a9b8c3ce6563147acae79199829846e3f Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Mon, 17 Feb 2014 08:39:58 +0100
+Subject: [PATCH 10/12] Correct env def
+
+---
+ config_files/DISTENE.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/config_files/DISTENE.sh b/config_files/DISTENE.sh
+index 8f07e65..63d5c96 100755
+--- a/config_files/DISTENE.sh
++++ b/config_files/DISTENE.sh
+@@ -36,7 +36,7 @@ print_env_sys()
+ 
+     cat > ${INSTALL_WORK}/env_${PRODUCT_TYPE}.sh <<EOF 
+ #${DELIM} ${PRODUCT_TYPE} ${DELIM}
+-if [ -z $DISTENE_HOME ]; then
++if [ -z \${DISTENE_HOME} ]; then
+    export DISTENE_HOME=/opt/DISTENE
+ fi
+ export MESHGEMS_ROOT_DIR=\${DISTENE_HOME}/MeshGems-${VERSION_MESHGEMS}/Products
+-- 
+1.8.5.3
+

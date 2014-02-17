@@ -1,0 +1,44 @@
+From dc80ff3f26964cf4e22096ef2d699fcb9de76b12 Mon Sep 17 00:00:00 2001
+From: Christophe Trophime <christrophime@googlemail.com>
+Date: Mon, 17 Feb 2014 08:41:44 +0100
+Subject: [PATCH 11/12] Use netgen from system
+
+---
+ config_files/netgen.sh | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/config_files/netgen.sh b/config_files/netgen.sh
+index 388c231..d21687a 100755
+--- a/config_files/netgen.sh
++++ b/config_files/netgen.sh
+@@ -93,6 +93,19 @@ make_env ${INST_ROOT} ${INSTALL_WORK} "${PRODUCT_SEQUENCE}" "${INSTALL_PRODUCTS}
+ 
+     install_source_and_build()
+     {
++status=1
++check_lib_version libnglib.so /usr/lib
++if [ "$?" -eq "0" ]; then
++   status=0
++fi
++check_lib_version libnglib.so /usr/lib/$(ARCH)
++if [ "$?" -eq "0" ]; then
++   status=0
++fi
++
++if [ "$status" = "0" ]; then
++   echo "use builtin netgen"
++else
+ # install sources
+ 	install_source
+ 
+@@ -139,6 +152,7 @@ make_env ${INST_ROOT} ${INSTALL_WORK} "${PRODUCT_SEQUENCE}" "${INSTALL_PRODUCTS}
+ 
+ # to generate environment scripts
+ 	try_preinstalled
++fi
+     }
+ 
+     install_binary()
+-- 
+1.8.5.3
+

@@ -1,7 +1,7 @@
 From 08facdd3879715de6234a540028b6960efe24bef Mon Sep 17 00:00:00 2001
 From: Christophe Trophime <christrophime@googlemail.com>
 Date: Tue, 11 Feb 2014 16:47:42 +0100
-Subject: [PATCH 9/9] Fix to use system med-fichier
+Subject: [PATCH 09/12] Fix to use system med-fichier
 
 ---
  config_files/med.sh | 15 +++++++++++++++

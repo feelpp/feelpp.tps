@@ -1,7 +1,7 @@
 From 666357233782eef835091658666150328694afbc Mon Sep 17 00:00:00 2001
 From: Christophe Trophime <christrophime@googlemail.com>
 Date: Mon, 3 Feb 2014 13:57:40 +0100
-Subject: [PATCH 2/9] Fix installation procedure
+Subject: [PATCH 02/12] Fix installation procedure
 
 ---
  config_Debian_jessie_64bit.xml      | 1247 +++++++++++++++++++++++++++++++

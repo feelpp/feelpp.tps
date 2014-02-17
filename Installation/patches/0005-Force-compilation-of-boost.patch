@@ -1,7 +1,7 @@
 From 4adfbce4c869359692a39fa344e1829b9c85a243 Mon Sep 17 00:00:00 2001
 From: Christophe Trophime <christrophime@googlemail.com>
 Date: Wed, 5 Feb 2014 07:54:04 +0100
-Subject: [PATCH 5/9] Force compilation of boost
+Subject: [PATCH 05/12] Force compilation of boost
 
 ---
  config_files/boost.sh | 10 +++++-----

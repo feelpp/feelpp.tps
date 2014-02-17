@@ -1,7 +1,7 @@
 From b6dadc879a67386525687ff8c61d340731808e6b Mon Sep 17 00:00:00 2001
 From: Christophe Trophime <christrophime@googlemail.com>
 Date: Tue, 4 Feb 2014 15:09:47 +0100
-Subject: [PATCH 4/9] Up
+Subject: [PATCH 04/12] Up
 
 ---
  config_files/boost.sh | 6 +++++-

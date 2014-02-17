@@ -1,7 +1,7 @@
 From 81ccb5981b308a8e016d67305e201daea70b1e57 Mon Sep 17 00:00:00 2001
 From: Christophe Trophime <christrophime@googlemail.com>
 Date: Thu, 6 Feb 2014 14:49:04 +0100
-Subject: [PATCH 8/9] Fix environment var for MeshGems
+Subject: [PATCH 08/12] Fix environment var for MeshGems
 
 ---
  config_files/DISTENE.sh | 8 ++++----

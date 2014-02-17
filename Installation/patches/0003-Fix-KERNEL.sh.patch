@@ -1,7 +1,7 @@
 From 17d7026193f6d818320164f8114ab2f198033b1d Mon Sep 17 00:00:00 2001
 From: Christophe Trophime <christrophime@googlemail.com>
 Date: Tue, 4 Feb 2014 15:07:48 +0100
-Subject: [PATCH 3/9] Fix KERNEL.sh
+Subject: [PATCH 03/12] Fix KERNEL.sh
 
 ---
  config_files/KERNEL.sh | 1 -

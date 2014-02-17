@@ -1,7 +1,7 @@
 From 814cca1fb699e5a7552d461018c83ef7e8fcb621 Mon Sep 17 00:00:00 2001
 From: Christophe Trophime <christrophime@googlemail.com>
 Date: Wed, 5 Feb 2014 09:48:22 +0100
-Subject: [PATCH 7/9] Add a small helper python script to determine Platform
+Subject: [PATCH 07/12] Add a small helper python script to determine Platform
 
 ---
  get_os_release.py | 59 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
