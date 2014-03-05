@@ -1,0 +1,2 @@
+debian/tmp/usr/lib/libfeel*.so.*  usr/lib
+debian/tmp/usr/bin/feelpp_excompiler usr/bin
