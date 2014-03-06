@@ -1,3 +1,9 @@
+feel++ (1:0.97.0-alpha.3-3ppa3) precise; urgency=low
+
+  * fix changelog
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Thu, 06 Mar 2014 21:15:10 +0100
+
 feel++ (1:0.97.0-alpha.3-3ppa2) unstable; urgency=low
 
   * debian/control: fix gmsh dependency on precise 
