@@ -3,20 +3,19 @@ Section: science
 Priority: extra
 Maintainer: Debian Science Maintainers <debian-science-maintainers@lists.alioth.debian.org>
 Uploaders: Christophe Prud'homme <prudhomm@debian.org>
-Build-Depends: cdbs, quilt, debhelper (>= 7), cmake (>=2.6), g++-4.8, clang-3.4|clang-3.5, gfortran (>=4.5),
+Build-Depends: cdbs, quilt, debhelper (>= 7), cmake (>=2.6), g++-4.8, clang-3.3|clang-3.4|clang-3.5, gfortran (>=4.5),
 	       chrpath,
 	       libboost-all-dev, libboost-mpi-dev,
 	       mpi-default-dev[!hurd-i386], mpi-default-bin[!hurd-i386],
 	       libeigen3-dev, libcln-dev,
-	       libslepc3.4.2-dev,
+	       libslepc3.1-dev,
 	       libxml2-dev,
 	       libgmsh-dev, gmsh,
 	       bison,flex,
 	       doxygen, doxygen-latex,
 	       transfig,imagemagick,
-	       libtbb-dev[amd64 i386],
 	       libann-dev, libglpk-dev
-Standards-Version: 3.9.4
+Standards-Version: 3.9.5
 Homepage: http://www.feelpp.org
 Vcs-Svn: svn://svn.debian.org/svn/debian-science/packages/feel++/trunk
 Vcs-Browser: http://svn.debian.org/wsvn/debian-science/packages/feel++/trunk
@@ -67,10 +66,10 @@ Depends: ${shlibs:Depends}, ${misc:Depends}, mpi-default-dev, libfeel++1 (= ${bi
 	 libboost-all-dev, libboost-mpi-dev,
 	 mpi-default-dev, mpi-default-bin, libgmsh-dev,
 	 libeigen3-dev, libcln-dev,
-	 libslepc3.4.2-dev,
-	 libvtk5-dev, libxml2-dev, libtbb-dev [amd64 i386],
-         libopenturns-dev, libann-dev, libglpk-dev
-Suggests: feel++-doc, libfeel++-dbg, doxygen, cmake, cmake-curses-gui
+	 libslepc3.1-dev,
+	 libvtk5-dev, libxml2-dev, 
+         libann-dev, libglpk-dev
+Suggests: feel++-doc, libfeel++-dbg, doxygen, cmake, cmake-curses-gui, libopenturns-dev
 Replaces: liblife-dev
 Description: A library for the finite element method
  Provides the header files and static libraries.
@@ -107,7 +106,7 @@ Description: A library for the finite element method
 Package: libfeel++-dbg
 Section: debug
 Architecture: amd64 i386 ia64 powerpc sparc
-Depends: ${shlibs:Depends}, ${misc:Depends}, mpi-default-dev, libfeel++-dev, libtbb2-dbg [amd64 i386]
+Depends: ${shlibs:Depends}, ${misc:Depends}, mpi-default-dev, libfeel++-dev
 Replaces: liblife-dbg
 Description: A library for the finite element method
  Feel++ is a versatile finite element library to solve partial

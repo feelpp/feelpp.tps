@@ -1,3 +1,9 @@
+feel++ (1:0.97.0-alpha.3-3ppa1) precise; urgency=low
+
+  * create ppa for feel++ for precise
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Thu, 06 Mar 2014 06:24:08 +0100
+
 feel++ (1:0.97.0-alpha.3-2) unstable; urgency=medium
 
   * try fixing powerpc build
