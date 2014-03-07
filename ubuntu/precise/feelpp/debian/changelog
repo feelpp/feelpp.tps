@@ -1,3 +1,9 @@
+feel++ (1:0.97.0-alpha.3-4~ppa2~precise1) precise; urgency=low
+
+  * fix distro for precise package
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Fri, 07 Mar 2014 16:23:59 +0100
+
 feel++ (1:0.97.0-alpha.3-4~ppa1~precise1) unstable; urgency=low
 
   * debian/control: fix depends on libboost dev 
