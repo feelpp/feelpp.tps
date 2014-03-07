@@ -1,3 +1,9 @@
+feel++ (1:0.97.0-alpha.3-4~ppa1~trusty1) trusty; urgency=low
+
+  * this should fix the conflict with the precise package
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Fri, 07 Mar 2014 14:12:04 +0100
+
 feel++ (1:0.97.0-alpha.3-3ppa3) trusty; urgency=low
 
   * really fix upload to Trusty
