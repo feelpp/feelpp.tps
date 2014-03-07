@@ -1,0 +1,70 @@
+#!/usr/bin/make -f
+
+DEB_AUTO_CLEANUP_RCS   := yes
+DEB_COMPRESS_EXCLUDE   := .pdf
+
+DEB_BUILD_ARCH := $(shell dpkg-architecture -qDEB_BUILD_ARCH)
+DEB_BUILD_ARCH_OS := $(shell dpkg-architecture -qDEB_BUILD_ARCH_OS)
+DEB_BUILD_GNU_SYSTEM ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_SYSTEM)
+
+ifeq (,$(filter $(DEB_HOST_ARCH),powerpc))
+export CXXFLAGS=
+export LDFLAGS=
+endif
+
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/cmake.mk
+include /usr/share/cdbs/1/rules/patchsys-quilt.mk
+
+
+PETSC_ARCH=$(DEB_BUILD_GNU_SYSTEM)
+
+
+FEELPP_INSTALL_ENABLERS=-DBUILD_TESTING=OFF                  \
+			-DFEELPP_ENABLE_DOXYGEN=ON          \
+			-DFEELPP_ENABLE_DOCUMENTATION=ON       \
+			-DFEELPP_MINIMAL_CONFIGURATION=ON
+
+DEB_CMAKE_EXTRA_FLAGS=                      \
+        -DCMAKE_BUILD_TYPE=Release          \
+	-DPETSC_ARCH=$(PETSC_ARCH)-c-opt        \
+	-DPETSC_DIR=/usr/lib/petsc \
+	-DPETSC_EXECUTABLE_RUNS=ON          \
+	${FEELPP_INSTALL_ENABLERS}            \
+	$(CURDIR)/$(DEB_SRCDIR)
+
+ifeq (,$(filter $(DEB_HOST_ARCH),sparc))
+DEB_CMAKE_EXTRA_FLAGS+=\
+		-DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
+		-DCMAKE_CXX_FLAGS_RELEASE="-O2 -DNDEBUG -g0"
+else
+DEB_CMAKE_EXTRA_FLAGS+=\
+		-DCMAKE_CXX_COMPILER=/usr/bin/g++-4.8 \
+		-DCMAKE_CXX_FLAGS_RELEASE="-Og -DNDEBUG"
+endif
+
+ifeq (,$(filter $(DEB_HOST_ARCH),powerpc))
+DEB_CMAKE_EXTRA_FLAGS+=\
+		-DCMAKE_CXX_FLAGS=""
+endif
+
+
+
+#build/feel++-apps::
+#	-cd $(DEB_BUILDDIR) && ctest -D Experimental
+
+#build/libfeel++::
+#	-cd $(DEB_BUILDDIR) && make doc
+
+build/feel++-doc::
+	-cd $(DEB_BUILDDIR)/ && make doxygen
+
+binary-install/libfeel++1::
+	chrpath -d debian/libfeel++1/usr/lib/libfeelpp_glog*
+
+binary-install/feel++-apps::
+	strip debian/feel++-apps/usr/bin/*
+
+get-orig-source:
+	uscan --force-download
