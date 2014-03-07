@@ -1,0 +1,219 @@
+Source: feel++
+Section: science
+Priority: extra
+Maintainer: Debian Science Maintainers <debian-science-maintainers@lists.alioth.debian.org>
+Uploaders: Christophe Prud'homme <prudhomm@debian.org>
+Build-Depends: cdbs, quilt, debhelper (>= 7), cmake (>=2.6), g++-4.8, clang-3.4|clang-3.5, gfortran (>=4.5),
+	       chrpath,
+	       libboost-all-dev, libboost-mpi-dev,
+	       mpi-default-dev[!hurd-i386], mpi-default-bin[!hurd-i386],
+	       libeigen3-dev, libcln-dev,
+	       libslepc3.4.2-dev,
+	       libxml2-dev,
+	       libgmsh-dev, gmsh,
+	       bison,flex,
+	       doxygen, doxygen-latex,
+	       transfig,imagemagick,
+	       libtbb-dev[amd64 i386],
+	       libann-dev, libglpk-dev
+Standards-Version: 3.9.5
+Homepage: http://www.feelpp.org
+Vcs-Svn: svn://svn.debian.org/svn/debian-science/packages/feel++/trunk
+Vcs-Browser: http://svn.debian.org/wsvn/debian-science/packages/feel++/trunk
+
+
+Package: libfeel++1
+Section: libs
+Architecture: amd64 i386 ia64 powerpc sparc
+Depends: ${shlibs:Depends}, ${misc:Depends}, gmsh
+Replaces: liblife
+Description: A library for the finite element method
+ Provides the dynamic Feel++ libraries.
+ .
+ Feel++ is a versatile finite element library to solve partial
+ differential equations.
+ .
+ Support 1D, 2D, 3D
+ .
+ Support the following basic entities: simplices (segment, triangle,
+ tetrahedron) and product of simplices (quadrangle, hexahedron)
+ .
+ Support various point sets on these basic entities: equispaced
+ points, quadrature points, interpolation points (Gauss-Lobatto,
+ Fekete, WarpBlend?)
+ .
+ Support continuous and discontinuous Galerkin methods
+ .
+ Support various polynomial sets:
+ .
+  * Lagrange(continuous,discontinuous,all dimensions,all interpolation
+ point sets)
+ .
+  * Dubiner(discontinuous), boundary adapted(continuous)
+ .
+  * Legendre(discontinuous), boundary adapted(continuous)
+ .
+ Provide mathematical concept for higher order abstraction (Function
+ spaces and associated elements, forms and operators)
+ .
+ Provide a language embedded in C++ for variational formulations,
+ projection and numerical integration
+
+
+Package: libfeel++-dev
+Section: libdevel
+Architecture: amd64 i386 ia64 powerpc sparc
+Depends: ${shlibs:Depends}, ${misc:Depends}, mpi-default-dev, libfeel++1 (= ${binary:Version}), libvtk5-dev,
+	 libboost-all-dev, libboost-mpi-dev,
+	 mpi-default-dev, mpi-default-bin, libgmsh-dev,
+	 libeigen3-dev, libcln-dev,
+	 libslepc3.4.2-dev,
+	 libvtk5-dev, libxml2-dev, libtbb-dev [amd64 i386],
+         libopenturns-dev, libann-dev, libglpk-dev
+Suggests: feel++-doc, libfeel++-dbg, doxygen, cmake, cmake-curses-gui
+Replaces: liblife-dev
+Description: A library for the finite element method
+ Provides the header files and static libraries.
+ .
+ Feel++ is a versatile finite element library to solve partial
+ differential equations.
+ .
+ Support 1D, 2D, 3D
+ .
+ Support the following basic entities: simplices (segment, triangle,
+ tetrahedron) and product of simplices (quadrangle, hexahedron)
+ .
+ Support various point sets on these basic entities: equispaced
+ points, quadrature points, interpolation points (Gauss-Lobatto,
+ Fekete, WarpBlend?)
+ .
+ Support continuous and discontinuous Galerkin methods
+ .
+ Support various polynomial sets:
+ .
+  * Lagrange(continuous,discontinuous,all dimensions,all interpolation
+ point sets)
+ .
+  * Dubiner(discontinuous), boundary adapted(continuous)
+ .
+  * Legendre(discontinuous), boundary adapted(continuous)
+ .
+ Provide mathematical concept for higher order abstraction (Function
+ spaces and associated elements, forms and operators)
+ .
+ Provide a language embedded in C++ for variational formulations,
+ projection and numerical integration
+
+Package: libfeel++-dbg
+Section: debug
+Architecture: amd64 i386 ia64 powerpc sparc
+Depends: ${shlibs:Depends}, ${misc:Depends}, mpi-default-dev, libfeel++-dev, libtbb2-dbg [amd64 i386]
+Replaces: liblife-dbg
+Description: A library for the finite element method
+ Feel++ is a versatile finite element library to solve partial
+ differential equations
+ .
+ Support 1D, 2D, 3D
+ .
+ Support the following basic entities: simplices (segment, triangle,
+ tetrahedron) and product of simplices (quadrangle, hexahedron)
+ .
+ Support various point sets on these basic entities: equispaced
+ points, quadrature points, interpolation points (Gauss-Lobatto,
+ Fekete, WarpBlend?)
+ .
+ Support continuous and discontinuous Galerkin methods
+ .
+ Support various polynomial sets:
+ .
+  * Lagrange(continuous,discontinuous,all dimensions,all interpolation
+ point sets)
+ .
+  * Dubiner(discontinuous), boundary adapted(continuous)
+ .
+  * Legendre(discontinuous), boundary adapted(continuous)
+ .
+ Provide mathematical concept for higher order abstraction (Function
+ spaces and associated elements, forms and operators)
+ .
+ Provide a language embedded in C++ for variational formulations,
+ projection and numerical integration
+
+Package: feel++-apps
+Section: science
+Architecture: amd64 i386 ia64 powerpc sparc
+Depends: ${shlibs:Depends}, ${misc:Depends}, libfeel++1 (= ${binary:Version}), libfeel++-dev (= ${binary:Version}), gmsh
+Recommends: paraview
+Replaces: life-apps
+Description: A library for the finite element method
+ Provides some applications codes(source and executables) such
+ as laplacian with cG and dG methods, stokes, heat transfer, solid
+ mechanics(static and dynamic).
+ .
+ Feel++ is a versatile finite element library to solve partial
+ differential equations
+ .
+ Support 1D, 2D, 3D
+ .
+ Support the following basic entities: simplices (segment, triangle,
+ tetrahedron) and product of simplices (quadrangle, hexahedron)
+ .
+ Support various point sets on these basic entities: equispaced
+ points, quadrature points, interpolation points (Gauss-Lobatto,
+ Fekete, WarpBlend?)
+ .
+ Support continuous and discontinuous Galerkin methods
+ .
+ Support various polynomial sets:
+ .
+  * Lagrange(continuous,discontinuous,all dimensions,all interpolation
+ point sets)
+ .
+  * Dubiner(discontinuous), boundary adapted(continuous)
+ .
+  * Legendre(discontinuous), boundary adapted(continuous)
+ .
+ Provide mathematical concept for higher order abstraction (Function
+ spaces and associated elements, forms and operators)
+ .
+ Provide a language embedded in C++ for variational formulations,
+ projection and numerical integration
+
+Package: feel++-doc
+Section: doc
+Architecture: all
+Depends: ${misc:Depends}
+Replaces: life-doc
+Description: A library for the finite element method
+ Provides the documentation for the Feel++ library : a user
+ guide including a tutorial and the api documentation generated by
+ doxygen.
+ .
+ Feel++ is a versatile finite element library to solve partial
+ differential equations.
+ .
+ Support 1D, 2D, 3D
+ .
+ Support the following basic entities: simplices (segment, triangle,
+ tetrahedron) and product of simplices (quadrangle, hexahedron)
+ .
+ Support various point sets on these basic entities: equispaced
+ points, quadrature points, interpolation points (Gauss-Lobatto,
+ Fekete, WarpBlend?)
+ .
+ Support continuous and discontinuous Galerkin methods
+ .
+ Support various polynomial sets:
+ .
+  * Lagrange(continuous,discontinuous,all dimensions,all interpolation
+ point sets)
+ .
+  * Dubiner(discontinuous), boundary adapted(continuous)
+ .
+  * Legendre(discontinuous), boundary adapted(continuous)
+ .
+ Provide mathematical concept for higher order abstraction (Function
+ spaces and associated elements, forms and operators)
+ .
+ Provide a language embedded in C++ for variational formulations,
+ projection and numerical integration
