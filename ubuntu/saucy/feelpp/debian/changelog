@@ -1,3 +1,15 @@
+feel++ (1:0.97.0-beta.1-1~ppa2~saucy1) saucy; urgency=low
+
+  * try fixing i386 build on saucy. Remove dependency on g++-4.8
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Mon, 10 Mar 2014 09:57:10 +0100
+
+feel++ (1:0.97.0-beta.1-1~ppa1~saucy1) saucy; urgency=low
+
+  * New upstream release
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Mon, 10 Mar 2014 09:45:28 +0100
+
 feel++ (1:0.97.0-alpha.3-4~ppa1~saucy1) saucy; urgency=low
 
   * upload feel++ to feelpp ppa

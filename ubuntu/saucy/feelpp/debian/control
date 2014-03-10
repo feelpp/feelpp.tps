@@ -3,7 +3,7 @@ Section: science
 Priority: extra
 Maintainer: Debian Science Maintainers <debian-science-maintainers@lists.alioth.debian.org>
 Uploaders: Christophe Prud'homme <prudhomm@debian.org>
-Build-Depends: cdbs, quilt, debhelper (>= 7), cmake (>=2.6), g++-4.8, clang-3.3, gfortran (>=4.5),
+Build-Depends: cdbs, quilt, debhelper (>= 7), cmake (>=2.6), clang-3.3, gfortran (>=4.5),
 	       chrpath,
 	       libboost1.54-all-dev, libboost-mpi1.54-dev,
 	       mpi-default-dev[!hurd-i386], mpi-default-bin[!hurd-i386],
