@@ -1,3 +1,16 @@
+feel++ (1:0.97.0-beta.1-1~ppa2~trusty1) trusty; urgency=low
+
+  * remove ppa dependency on ubuntu toolchain which brings gcc4.9 which
+    breaks the build
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Mon, 10 Mar 2014 09:28:19 +0100
+
+feel++ (1:0.97.0-beta.1-1~ppa1~trusty1) trusty; urgency=low
+
+  * New upstream version
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Mon, 10 Mar 2014 09:08:49 +0100
+
 feel++ (1:0.97.0-alpha.3-4~ppa1~trusty1) trusty; urgency=low
 
   * this should fix the conflict with the precise package
