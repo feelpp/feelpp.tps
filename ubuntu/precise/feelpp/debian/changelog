@@ -1,3 +1,9 @@
+feel++ (1:0.97.0-beta.1-1~ppa1~precise1) precise; urgency=low
+
+  * New upstream version
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Mon, 10 Mar 2014 09:09:29 +0100
+
 feel++ (1:0.97.0-alpha.3-4~ppa2~precise1) precise; urgency=low
 
   * fix distro for precise package
@@ -6,7 +12,7 @@ feel++ (1:0.97.0-alpha.3-4~ppa2~precise1) precise; urgency=low
 
 feel++ (1:0.97.0-alpha.3-4~ppa1~precise1) unstable; urgency=low
 
-  * debian/control: fix depends on libboost dev 
+  * debian/control: fix depends on libboost dev
 
  -- Christophe Prud'homme <prudhomm@debian.org>  Fri, 07 Mar 2014 16:05:08 +0100
 
@@ -18,7 +24,7 @@ feel++ (1:0.97.0-alpha.3-3ppa3) precise; urgency=low
 
 feel++ (1:0.97.0-alpha.3-3ppa2) unstable; urgency=low
 
-  * debian/control: fix gmsh dependency on precise 
+  * debian/control: fix gmsh dependency on precise
 
  -- Christophe Prud'homme <prudhomm@debian.org>  Thu, 06 Mar 2014 10:19:35 +0100
 
