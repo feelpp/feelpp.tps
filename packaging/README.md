@@ -1,7 +1,7 @@
 ## Creating a "cowbuilder" environment
 
 To create a cowbuilder "saucy" environment for "amd64" arch :
-"""
+```
 sudo mkdir /var/cache/pbuilder/saucy-amd64
 sudo cowbuilder --create \
  --distribution saucy \
@@ -13,12 +13,12 @@ sudo cowbuilder --create \
  --debootstrapopts amd64 \
  --debootstrapopts \
  --keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg
-""" 
+``` 
 
 ## Setup pbuilder environment
 
 you need to modify your system or local pbuilderrc configuration file: 
-"""
+```
 # this is your configuration file for pbuilder.
 # the file in /usr/share/pbuilder/pbuilderrc is the default template.
 # /etc/pbuilderrc is the one meant for overwritting defaults in
@@ -134,12 +134,28 @@ else
     echo "Unknown distribution: $DIST"
     exit 1
 fi
-""""
+```
+
+For more details see [PbuilderHowto](https://wiki.ubuntu.com/PbuilderHowto)
 
 ## Howto
 
+To create a package for saucy go into the source package dir, then type:
+```
+DIST=saucy ARCH=amd68 pdebuild
+```
+
 ## Some helpfull scripts
 
+To update your saucy amd64 pbuilder environment
+```
+./distro.sh update_cowbuilder saucy amd64
+```
+
+To update your local saucy repository
+```
+./distro.sh update_repo saucy
+```
 
 ## Examples
 
@@ -147,6 +163,9 @@ A script to generate a package for gmsh-tegen: see gmsh-tetgen-dpkg.sh
 
 ## TODO
 
+* From [Ref](http://askubuntu.com/questions/265703/how-to-do-a-pbuilder-dist-build-with-dependencies-in-a-ppa) :
+
 Chroot into your pbuilder environment to add the repository keys (or alternatively create a local keyring with those two keys and add it to APTKEYSTRINGS variable or add your local /etc/apt/trusted.gpg keyring):
 
-Ref: http://askubuntu.com/questions/265703/how-to-do-a-pbuilder-dist-build-with-dependencies-in-a-ppa
+* The helpfull scripts provided use a local repository created with aptftp.
+* To upload the created packages into the local repository we use dupload, this should be changed to dput to facilitate the maintenance of feelpp ppa.
