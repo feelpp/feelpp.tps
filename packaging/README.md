@@ -15,7 +15,9 @@ sudo cowbuilder --create \
  --keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg
 """ 
 
-The you need to modify your system or local pbuilderrc configuration file: 
+## Setup pbuilder environment
+
+you need to modify your system or local pbuilderrc configuration file: 
 """
 # this is your configuration file for pbuilder.
 # the file in /usr/share/pbuilder/pbuilderrc is the default template.
@@ -146,4 +148,5 @@ A script to generate a package for gmsh-tegen: see gmsh-tetgen-dpkg.sh
 ## TODO
 
 Chroot into your pbuilder environment to add the repository keys (or alternatively create a local keyring with those two keys and add it to APTKEYSTRINGS variable or add your local /etc/apt/trusted.gpg keyring):
+
 Ref: http://askubuntu.com/questions/265703/how-to-do-a-pbuilder-dist-build-with-dependencies-in-a-ppa
