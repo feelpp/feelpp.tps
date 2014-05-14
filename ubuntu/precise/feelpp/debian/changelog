@@ -1,3 +1,21 @@
+feel++ (1:0.98.0-beta.2-1~ppa1~precise1) precise; urgency=low
+
+  * New upstream release
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Wed, 07 May 2014 01:34:44 +0200
+
+feel++ (1:0.97.3-final-1~ppa1~precise1) precise; urgency=low
+
+  * New upstream version
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Mon, 17 Mar 2014 22:08:05 +0100
+
+feel++ (1:0.97.2-final-1~ppa1~precise1) precise; urgency=low
+
+  * New upstream version
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Sun, 16 Mar 2014 21:16:41 +0100
+
 feel++ (1:0.97.0-beta.1-1~ppa3~precise1) precise; urgency=low
 
   * fix upload

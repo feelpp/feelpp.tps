@@ -1,3 +1,27 @@
+feel++ (1:0.98.0-beta.2-1~ppa1~trusty1) trusty; urgency=low
+
+  * New upstream release
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Wed, 07 May 2014 01:38:55 +0200
+
+feel++ (1:0.98.0-beta.1-1~ppa1~trusty1) trusty; urgency=low
+
+  * New upstream release
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Thu, 27 Mar 2014 13:55:18 +0100
+
+feel++ (1:0.97.3-final-1~ppa1~trusty1) trusty; urgency=low
+
+  * New upstream version
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Mon, 17 Mar 2014 22:00:43 +0100
+
+feel++ (1:0.97.2-final-1~ppa1~trusty1) trusty; urgency=low
+
+  * New upstream version
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Sun, 16 Mar 2014 21:20:56 +0100
+
 feel++ (1:0.97.0-beta.1-1~ppa2~trusty1) trusty; urgency=low
 
   * remove ppa dependency on ubuntu toolchain which brings gcc4.9 which
