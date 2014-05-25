@@ -1,3 +1,9 @@
+feel++ (1:0.98.0-final-1~ppa1~saucy1) saucy; urgency=low
+
+  * New upstream release
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Thu, 22 May 2014 21:33:27 +0200
+
 feel++ (1:0.98.0-beta.2-1~ppa1~saucy1) unstable; urgency=low
 
   * New upstream release
