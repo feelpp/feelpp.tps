@@ -1,4 +1,16 @@
-feel++ (1:0.99.0-beta.8-3~ppa1~precise1) unstable; urgency=low
+feel++ (1:0.99.0-final.1-1~ppa1~precise1) precise; urgency=low
+
+  * new upstream release
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Mon, 08 Sep 2014 00:19:57 +0200
+
+feel++ (1:0.99.0-beta.9-1~ppa1~precise1) precise; urgency=low
+
+  * new upstream release
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Sun, 07 Sep 2014 21:49:27 +0200
+
+feel++ (1:0.99.0-beta.8-3~ppa1~precise1) precise; urgency=low
 
   * really fix install file
 
