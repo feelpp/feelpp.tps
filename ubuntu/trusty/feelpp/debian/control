@@ -64,7 +64,7 @@ Package: libfeel++-dev
 Section: libdevel
 Architecture: amd64 i386 ia64 powerpc sparc
 Depends: ${shlibs:Depends}, ${misc:Depends}, mpi-default-dev, libfeel++1 (= ${binary:Version}), libvtk5-dev,
-	 libboost-all-dev, libboost-mpi-dev,
+	 libboost-all-dev|libboost1.55-all-dev, libboost-mpi-dev|libboost-mpi1.55-dev,
 	 mpi-default-dev, mpi-default-bin, libgmsh-dev,
 	 libeigen3-dev, libcln-dev,
 	 libslepc3.4.2-dev,

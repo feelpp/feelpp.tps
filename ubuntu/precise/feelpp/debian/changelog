@@ -1,3 +1,9 @@
+feel++ (1:0.100.0-beta.1-1~ppa1~precise1) precise; urgency=low
+
+  * New upstream beta release
+
+ -- Christophe Prud'homme <prudhomm@debian.org>  Sun, 18 Jan 2015 20:04:23 +0100
+
 feel++ (1:0.99.0-final.1-1~ppa1~precise1) precise; urgency=low
 
   * new upstream release
