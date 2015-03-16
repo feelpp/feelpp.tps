@@ -59,7 +59,7 @@ sudo apt-get install libcos4-dev libomniorb4-dev libomnithread3-dev
 sudo apt-get install omniidl omniidl-python omniorb-idl omniorb-nameserver python-omniorb python-omniorb-omg 
 sudo apt-get install doxygen python-sphinx
 sudo apt-get install libgl2ps-dev libxml2-dev
-sudo apt-get install libbfreeimage-dev libfreetype6-dev libgd-dev
+sudo apt-get install libfreeimage-dev libfreetype6-dev libgd-dev
 ```
 
 ### Run the installer
